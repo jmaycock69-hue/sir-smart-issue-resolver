@@ -1,0 +1,587 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SIR · Smart Issue Resolver</title><style>:root{color-scheme:light;--ink:#17382f;--muted:#52665e;--green:#126746;--border:#ceddd3;--paper:#fff;--wash:#f3f6f0;--soft:#e7f3e9;--accent:#d8ef75}*{box-sizing:border-box}body{margin:0;background:var(--wash);color:var(--ink);font:18px/1.6 'Segoe UI',system-ui,sans-serif;overflow-wrap:anywhere}button,input,select,textarea{font:inherit}button,a,input,select,textarea,summary{outline-offset:5px}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:4px solid #996000}a{color:var(--green)}button{border:1px solid #a5bcb0;border-radius:12px;background:#fff;color:var(--ink);padding:13px 20px;cursor:pointer;font-weight:650;line-height:1.4;margin:6px 8px 6px 0;min-height:50px}button:hover:not(:disabled){background:var(--soft);border-color:var(--green)}button:disabled{opacity:.55;cursor:default}.primary{background:var(--green);color:white;border-color:var(--green)}.primary:hover:not(:disabled){background:#084e32}.sidebar{width:230px;position:fixed;inset:0 auto 0 0;padding:28px 18px;border-right:1px solid var(--border);background:#fff;display:flex;flex-direction:column;overflow:auto}.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);font-size:32px;font-weight:800;line-height:1.1}.brand-mark{display:grid;place-items:center;width:48px;height:48px;background:var(--green);color:white;border-radius:15px}.brand small{display:block;font-size:12px;margin-top:6px;font-weight:600}.side-caption{font-size:15px;color:var(--muted);margin:22px 0}.sidebar>.primary{width:100%;margin:0 0 24px}.sidebar nav{display:grid;gap:5px}.sidebar nav button{font-size:16px;text-align:left;white-space:normal;margin:0;border-color:transparent;background:transparent;padding:12px}.sidebar nav button span{font-size:13px;margin-right:10px;color:#52665e}.sidebar nav button[aria-current=page]{background:#e6f2e5;border-color:#9dbc9a;color:#174a31}.side-footer{margin-top:auto;padding-top:24px;font-size:14px;color:var(--muted)}.side-footer p{font-size:13px}.status-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--green);margin-right:8px}.app{margin-left:230px;padding:0 36px 30px;max-width:1800px;min-width:0}.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:24px 0;border-bottom:1px solid var(--border);font-size:13px;font-weight:750;letter-spacing:.08em}.demo-badge,.badge{display:inline-block;border-radius:24px;background:var(--soft);padding:5px 13px;font-size:14px;letter-spacing:0}.demo-badge{background:#f2e9d1;color:#644914}#case-strip{margin-top:18px}#case-strip>div{display:flex;gap:12px;align-items:center;flex-wrap:wrap}#case-strip-next{display:none}#guided-step{display:flex;gap:20px;align-items:center;justify-content:space-between;background:#e2efd8;border:2px solid #9bbe69;border-left:8px solid var(--green);border-radius:18px;padding:22px 26px;margin:22px 0 12px}#guided-step h2{font-size:29px;letter-spacing:-.02em;margin:4px 0 8px}#guided-step p{margin:0;font-size:19px;max-width:90ch}#guided-action{flex-shrink:0;max-width:260px}.eyebrow{font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--green)}h2{font-size:30px;line-height:1.25;margin:8px 0 16px;letter-spacing:-.025em}h3{font-size:23px;line-height:1.3;margin:18px 0 12px}p{margin:10px 0}.global-status{font-size:17px;color:#174c33;background:#e6f2e5;border-radius:10px;padding:12px 16px;margin:14px 0;border:1px solid #b2cdb3}.global-status:empty{display:none}.global-status[data-error=true]{background:#fff0d9;color:#754100;border-color:#d8a352}.assistant-layout{display:block;margin:24px 0}.next-card{display:none}#conversation-step>h2{font-size:36px}.intro{font-size:19px;color:var(--muted);max-width:90ch}fieldset{border:0;padding:0;margin:18px 0;min-width:0}label{display:block;font-size:18px;font-weight:550;margin:16px 0;scroll-margin:25px}input:not([type=checkbox]),select,textarea{display:block;width:100%;max-width:100%;margin-top:7px;border:1.5px solid #a5bcb0;border-radius:10px;padding:13px;background:#fff;color:var(--ink)}input[type=checkbox]{width:21px;height:21px;accent-color:var(--green);margin:0 9px 0 0;vertical-align:middle}textarea{resize:vertical;min-height:150px;line-height:1.75}#ai-message{min-height:130px!important}#ai-messages{max-height:44vh;min-height:100px;overflow:auto;display:flex;flex-direction:column;gap:14px;padding:6px 6px 12px 0}#ai-messages p{white-space:pre-wrap;margin:4px 0}.bubble{border:1px solid var(--border);background:white;border-radius:16px;padding:16px 20px;max-width:90%;font-size:18px}.bubble.user{align-self:flex-end;background:#e3eddf}.bubble strong{font-size:14px;color:var(--green)}.bubble.system{background:#eaf1dc}.welcome{display:flex;gap:18px;align-items:flex-start;color:var(--muted)}.avatar{background:var(--green);color:white;padding:8px 17px;border-radius:12px}details{margin:16px 0}summary{cursor:pointer;font-weight:650;padding:12px 0}details[open]>summary{margin-bottom:12px}.quiet-details,small,.footnote,.app-footer{font-size:15px;color:var(--muted)}#ai-availability{font-size:15px;color:var(--muted)}#scripted-guide{border:1px solid #b9d1bd;background:#fff;padding:14px 20px;border-radius:12px}#scripted-guide p{font-size:16px}#demo-examples button{display:block;width:100%;text-align:left}#fact-review{border:2px solid #9cbc8c;border-radius:14px;padding:20px;background:#fff}#compact-facts p{font-size:19px;margin:12px 0}#intake-summary:empty{display:none}#fact-quotes{white-space:pre-line;font-size:15px}#advanced-intake{padding:15px;background:var(--wash);border-radius:10px}.page-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;margin:26px 0}.page-heading p{color:var(--muted);font-size:18px}.panel,#evidence-step,#policy-step,#email-step,.activity-card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:26px;margin:20px 0!important;min-width:0}.panel p,#evidence-step>p,#policy-step>p{font-size:18px;color:var(--muted)}.evidence-grid{display:block}#case{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{background:#f0f5ed;border:1px solid var(--border);border-radius:12px;padding:18px;margin:8px 0;font-size:17px;overflow-wrap:anywhere}.card p{margin:7px 0}.case-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.case-tile{border:1px solid var(--border);background:white;border-radius:16px;padding:24px}.tile-top{display:flex;justify-content:space-between;align-items:start;gap:10px;flex-wrap:wrap}.tile-top h3{margin:0}.case-amount{font-size:27px;font-weight:750}.case-tile small{display:block}#fields,.advanced-case[open]{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 24px}#fields>details,#fields>p,#fields>small,.advanced-case summary{grid-column:1/-1}.advanced-case{border:1px solid var(--border);border-radius:12px;padding:10px 16px}#output,#email-preview{font-family:inherit;font-size:18px;line-height:1.8;min-height:500px;max-width:none}#email-preview{min-height:620px}#draft-state{display:block;margin:12px 0;font-size:16px}#source-review{border-top:2px solid var(--border);margin-top:24px;padding-top:18px}#source-suggestions{font-size:16px;white-space:pre-line}#source-guidance,#export-guidance{font-size:17px;background:var(--soft);border-radius:12px;padding:14px}#source-review .review-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 22px}#checks{font-size:17px;display:block;overflow:auto;max-width:100%}table{border-collapse:collapse;text-align:left;width:100%}td,th{font-size:16px;padding:12px;border-bottom:1px solid var(--border);overflow-wrap:anywhere}#review-warning,#draft-lifecycle-warning{color:#754100;background:#fff0d9;padding:12px;border-radius:10px}#review-warning:empty,#draft-lifecycle-warning:empty{display:none}#record-progress{border:0;margin:0;padding:0}#record-progress>summary{display:none}.activity-card>summary{font-size:24px}#case-history{border-left:3px solid #bfd0b9;padding-left:22px}#case-history p{margin:18px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}[hidden]{display:none!important}.skip{position:fixed;top:-100px;left:250px;background:white;padding:14px;z-index:10}.skip:focus{top:10px}.app-footer{border-top:1px solid var(--border);padding-top:20px;margin-top:35px}.guided-target{scroll-margin:30px}.guided-pulse{outline:4px solid #71a527;outline-offset:5px;box-shadow:0 0 0 9px #d8ef7566;border-radius:10px}.guided-pulse:not(label):not(input):not(textarea):not(select){background:var(--green);color:#fff}label.guided-pulse{padding:12px;background:#f0f7d8}.guided-nav{box-shadow:inset 4px 0 #4c7b20}#journey-progress{display:flex;gap:10px;list-style:none;padding:0;margin:20px 0 0;color:var(--muted);font-size:15px;flex-wrap:wrap}#journey-progress li{padding:7px 12px;border-bottom:3px solid var(--border)}#journey-progress li[aria-current=step]{font-weight:750;color:var(--green);border-color:var(--green)}.journey-empty{padding:24px;background:white;border-radius:14px}#workflow-extras{font-size:15px;margin-top:12px}#workflow-extras button{font-size:15px}.local-success{padding:12px;background:#e6f2e5;color:#174c33;border-radius:10px}#email-state{font-size:17px;font-weight:650}.read-only-message{background:#e6f2e5;padding:20px;border-radius:14px}
+.app{max-width:none}
+button.guided-pulse{background:var(--green);color:white}
+#case-history.guided-pulse,#case.guided-pulse{background:transparent;color:var(--ink)}
+@media(min-width:1700px){.app{padding-left:55px;padding-right:55px}}@media(max-width:1100px){.sidebar{width:200px;padding:24px 14px}.app{margin-left:200px;padding:0 24px 26px}#guided-step{display:block}#guided-action{max-width:none;margin-top:16px}#case{grid-template-columns:1fr}}
+@media(max-width:760px){body{font-size:17px}.sidebar{position:static;width:auto;border-right:0;padding:18px}.brand{font-size:27px}.side-caption,.side-footer{display:none}.sidebar>.primary{position:absolute;right:16px;top:17px;width:auto;font-size:15px;padding:12px}.sidebar nav{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin-top:16px}.sidebar nav button{font-size:15px;padding:10px;text-align:center;min-height:48px}.sidebar nav button span{display:none}.app{margin:0;padding:0 16px 22px}.topbar{padding:16px 0;font-size:12px}#guided-step{padding:18px;border-left-width:6px}#guided-step h2{font-size:25px}#guided-step p{font-size:18px}.page-heading h2,#conversation-step>h2{font-size:29px}.page-heading{display:block}.panel,#evidence-step,#policy-step,#email-step,.activity-card{padding:18px}#fields,.advanced-case[open],#source-review .review-facts,.case-grid{grid-template-columns:1fr}.advanced-case[open]{display:block}.bubble{max-width:96%}#output{min-height:440px;font-size:17px}#email-preview{font-size:17px}.skip{left:10px}#journey-progress{gap:3px;font-size:13px}#journey-progress li{padding:7px 6px}td,th{font-size:14px;padding:8px}#scripted-guide{padding:10px 14px}}
+@media(max-width:380px){.sidebar>.primary{position:static;width:100%;margin:16px 0 0}.sidebar nav button{font-size:14px}.app{padding:0 12px 20px}}
+@media(prefers-reduced-motion:no-preference){@keyframes guide-arrive{0%{box-shadow:0 0 0 12px #d8ef75aa}100%{box-shadow:0 0 0 9px #d8ef7566}}.guided-pulse{animation:guide-arrive 1.6s ease-out 2}}
+@media(prefers-reduced-motion:reduce){.guided-pulse{animation:none}*{animation:none!important;scroll-behavior:auto!important}}
+/* Final accepted-layout corrections, 22 October 2026. */
+.primary-action-row{display:flex;justify-content:center;flex-wrap:wrap;margin:30px 0 14px;padding-top:18px;border-top:1px solid var(--border)}
+.primary-action-row button{margin:6px 0;max-width:100%}
+.secondary-action-row{margin:20px 0 12px}
+.review-confirmation{display:flex;align-items:flex-start;gap:12px;border:1px solid #b2c9b6;border-radius:12px;padding:18px;background:#f0f6ec;line-height:1.6}
+.review-confirmation input[type=checkbox]{flex:0 0 23px;width:23px;height:23px;margin:4px 0 0}
+.review-confirmation.guided-pulse{padding:18px;background:#f0f6ec}
+#outcome-panel>summary{font-size:21px;font-weight:600;color:var(--muted)}
+#response-panel>summary{font-size:23px}
+#recipient-guidance{margin:0 0 18px}
+.sidebar nav button{font-size:17px}
+</style></head><body>
+<a class="skip" href="#pane-assistant">Skip to content</a>
+<aside class="sidebar"><a class="brand" href="#" aria-label="SIR home"><span class="brand-mark">S</span><span>SIR<small>Smart Issue Resolver</small></span></a><p class="side-caption">A little help. A clearer way forward.</p><button id="new-dispute" class="primary">+ New dispute</button><nav aria-label="Main navigation"><button data-nav="assistant" aria-current="page"><span>01</span> Assistant</button><button data-nav="cases"><span>02</span> My Cases</button><button data-nav="evidence"><span>03</span> Evidence & Research</button><button data-nav="drafts"><span>04</span> Complaint</button></nav><div class="side-footer"><span class="status-dot"></span> You stay in control<p>Fictional local demonstration.<br>Alexa+ interaction is simulated.<br>Email files are exported for review.</p></div></aside>
+<main class="app"><header class="topbar"><span>YOUR CONSUMER ADVOCATE</span><span class="demo-badge">Fictional demo</span></header><div id="case-strip" hidden><div><strong id="case-strip-title"></strong><span id="case-strip-status" class="badge"></span></div><p id="case-strip-next"></p></div><section id="guided-step" aria-labelledby="guided-title"><div><span class="eyebrow">SIR · YOUR NEXT STEP</span><h2 id="guided-title">Tell me what happened</h2><p id="guided-copy" aria-live="polite"></p></div><button id="guided-action" class="primary" aria-describedby="guided-copy">Start my complaint</button></section><p id="status" class="global-status" role="status" aria-live="polite"></p>
+<div id="pane-assistant" data-pane="assistant"><div class="assistant-layout"><div><section id="conversation-step" style="margin:24px 0"><h2>Let’s sort this out.</h2><p class="intro">Tell me what went wrong and what you would like put right. We’ll organise the facts, review relevant records and prepare a complaint together.</p><p id="ai-availability" role="status">Checking conversation availability…</p><details id="scripted-guide" hidden><summary>Scripted demo: three example messages</summary><p>This is a bounded rehearsal, not live AI. Select each example in order, then select Ask SIR. You still review every fact and control the real case workflow.</p><div id="demo-examples"></div></details><fieldset id="conversation-controls"><button id="start-conversation">Start a new conversation</button><details class="quiet-details"><summary>Previous conversations</summary><label>Saved conversations<select id="saved-intakes"><option value="">No conversation selected</option></select></label><button id="open-conversation">Reopen conversation</button></details><div id="ai-messages" role="log" aria-label="Conversation" aria-live="polite"><div class="welcome"><span class="avatar">S</span><p>Welcome to SIR. Start with the company, what went wrong and what you would like put right. I’ll help you work through the next steps.</p></div></div><label>Your message<textarea id="ai-message" maxlength="6000" style="min-height:100px" placeholder="Describe your complaint and what outcome you want."></textarea></label><label><input id="ai-consent" type="checkbox"> Send this fictional or anonymised conversation and proposed facts to the configured AI service.</label><button id="send-message">Ask SIR</button><p id="ai-request-status" role="status" aria-live="polite"></p><details id="fact-review" hidden><summary>Review your case summary</summary><div id="compact-facts"></div><button id="edit-intake-details" type="button" aria-expanded="false" aria-controls="advanced-intake">Edit details</button><details id="advanced-intake"><summary>Advanced: full case details and source quotations</summary><div id="proposed-facts" hidden></div><div id="fact-quotes"></div></details><div id="intake-summary" style="white-space:pre-line"></div><label><input id="intake-confirm" type="checkbox"> Confirm facts — I have reviewed this summary. Supporting evidence will be added separately.</label><button id="commit-intake">Create my case</button><p id="intake-blocker" role="status" aria-live="polite" style="font-size:14px;background:#fff3d5;padding:12px;border-radius:8px"></p></details></fieldset></section></div><aside class="next-card"><span class="eyebrow">ONE STEP AT A TIME</span><h2 id="context-title">Your next step</h2><p id="context-copy">Start with what happened.</p><button id="manual-start">Enter facts without AI</button><div class="context-actions"><button data-nav="evidence">Upload or review evidence</button><button id="check" disabled>Check my evidence</button><button id="draft" disabled>Prepare my complaint</button><button data-nav="drafts">Review complaint</button><button data-nav="cases">Open a saved case</button></div><details class="quiet-details"><summary>Case guidance log</summary><div id="messages"></div></details><small>You review the facts and approve each export.</small></aside></div><p id="composer-help" class="footnote">Ctrl + Enter to send · Only your consented conversation and proposed facts go to the configured AI service.</p></div>
+<div id="pane-cases" data-pane="cases" hidden><div class="page-heading"><div><span class="eyebrow">PICK UP WHERE YOU LEFT OFF</span><h2>My Cases</h2><p id="case-count"></p></div><button id="new-manual">New case without AI</button></div><div id="case-list" class="case-grid"></div><details class="quiet-details"><summary>Choose by case reference</summary><label for="saved">Choose a case to reopen</label><select id="saved"></select><button id="refresh">Refresh list</button><button id="resume">Open selected case</button><button id="new">Try fictional StreamNest sample</button></details></div>
+<div id="pane-evidence" data-pane="evidence" hidden><div class="page-heading"><div><span class="eyebrow">FACTS BEFORE ASSUMPTIONS</span><h2>Evidence & Research</h2><p>Review your facts, compare your records and keep the source in view.</p></div></div><section class="panel"><h2>Your case facts & saved evidence</h2><div id="case">Open a case or enter the facts to begin.</div></section><template id="intake-template"><details id="editor"><summary>Review or edit case facts</summary><form id="intake"><fieldset id="fields"><legend>Case details — fictional use only</legend><label>What happened<textarea id="issue" maxlength="4000" style="min-height:110px"></textarea></label><label>Outcome requested<textarea id="desiredOutcome" maxlength="1500" style="min-height:90px" placeholder="What would you like the company to do?"></textarea></label><label>Complaint category<select id="complaintType"><option value="">Not classified</option><option value="billing">Billing</option><option value="cancellation">Cancellation</option><option value="non-delivery">Product or service not supplied</option><option value="faulty-product">Faulty product</option><option value="poor-service">Poor service</option><option value="booking">Booking or travel</option><option value="other">Other</option></select></label><label>What was expected<textarea id="expected" maxlength="1500" style="min-height:85px"></textarea></label><label>What actually happened / impact<textarea id="actual" maxlength="1500" style="min-height:85px"></textarea></label><label>Previous contact and response<textarea id="priorContact" maxlength="1500" style="min-height:85px"></textarea></label><label>Relevant event date (optional)<input id="incidentDate" type="date"></label><label>Order or account reference (optional)<input id="reference" maxlength="200"></label><label>Company or organisation<input id="merchant" required maxlength="100"></label><label>Amount involved (if relevant)<input id="amount" required inputmode="decimal" pattern="(0|[1-9][0-9]{0,8})\.[0-9]{2}"></label><label>Currency<input id="currency" list="currency-codes" maxlength="3" placeholder="e.g. USD"><datalist id="currency-codes"><option>GBP</option><option>USD</option><option>EUR</option><option>THB</option><option>JPY</option><option>AUD</option><option>CAD</option><option>SGD</option></datalist></label><label>Cancellation date (if relevant)<input id="cancelled" required type="date"></label><label>Payment or charge date (if relevant)<input id="charged" required type="date"></label><p>Fictional evidence records are independent of case facts. Enter what each invented record says; these fields do not authenticate real documents.</p><label><input id="e1" type="checkbox"> Include E1: cancellation confirmation</label><label><input id="e2" type="checkbox"> Include E2: billing receipt</label><details><summary>Edit fictional evidence records</summary><p>These are invented test records, not uploads. Saving preserves the earlier records in case history.</p><label>E1 merchant<input id="e1-merchant" maxlength="100"></label><label>E1 cancellation date<input id="e1-date" type="date"></label><label>E2 merchant<input id="e2-merchant" maxlength="100"></label><label>E2 charge date<input id="e2-date" type="date"></label><label>E2 amount<input id="e2-amount" inputmode="decimal"></label><label>E2 currency<select id="e2-currency"><option>GBP</option><option>USD</option><option>EUR</option><option>THB</option></select></label></details><button id="save-details" type="submit" disabled>Save case details</button><button id="create-custom" type="button">Create new case from these details</button><small id="details-state"></small></fieldset></form></details></template><div class="evidence-grid"><section id="evidence-step" style="margin-top:24px"><h2>Supply supporting evidence</h2><p id="evidence-help">Use fictional or anonymised correspondence. The text stays on this computer. Open a case first; this replaces its selected E1 or E2 record after your confirmation.</p>
+<fieldset id="paste-fields"><label>Upload a text PDF or plain-text file (up to 2 MB)<input id="document-file" type="file" accept=".txt,.pdf,text/plain,application/pdf"></label><button id="upload-document">Extract document text</button><p>Choose the evidence type below before uploading. PDF extraction reads text layers locally; images and scanned PDFs need a transcription. Original files are retained after you review and save.</p><label>Source title<input id="source-title" maxlength="160" placeholder="Cancellation confirmation email"></label><label>Evidence type<select id="source-type"><option value="supporting">Supporting record</option><option value="correspondence">Correspondence</option><option value="order">Order or agreement</option><option value="statement">Consumer statement (not independent evidence)</option><option value="cancellation">Cancellation confirmation</option><option value="receipt">Billing receipt</option></select></label><label>Source text<textarea id="source-text" maxlength="30000" style="min-height:140px" placeholder="Merchant: DemoVPN&#10;Cancellation effective date: 2026-09-06&#10;Reference: DEMO-123"></textarea></label><button id="analyse-source">Suggest facts from text</button><p>Suggestions recognise labelled lines and dates in YYYY-MM-DD format. Ordinary prose may need manual correction. This is local pattern extraction, not AI or document authentication.</p>
+<button id="different-source" type="button" hidden>Review a different source</button><p id="source-guidance" role="status">Open a case, then extract a document or suggest facts from pasted text.</p><div id="source-review" hidden><h3>Review this evidence</h3><p>Check the original text above, correct any suggestions below, then confirm and save.</p><p id="source-suggestions"></p><label><span>Merchant recorded in source</span><input id="source-merchant" maxlength="100"></label><label><span>Date recorded in source</span><input id="source-date" type="date"></label><div id="receipt-fields"><label>Amount recorded in source<input id="source-amount" inputmode="decimal"></label><label>Currency recorded in source<input id="source-currency" list="currency-codes" maxlength="3" placeholder="Unknown if blank"></label></div><label id="source-reference-label">Order or account reference in source (optional)<input id="source-reference" maxlength="200"></label><div id="source-comparison"><label><input id="source-compare" type="checkbox" checked> Compare supplied structured facts with this case (untick for context-only records)</label><label>Date comparison<select id="source-date-role"><option value="none">Do not compare this source date</option><option value="charged">Payment or charge date</option><option value="cancelled">Cancellation date</option><option value="incidentDate">Relevant event date</option></select></label></div><label><input id="source-confirm" type="checkbox"> I reviewed the original text and confirm these facts represent the evidence.</label><button id="save-source" aria-describedby="source-guidance">Save reviewed evidence to this case</button></div></fieldset></section><section id="policy-step" style="margin-top:24px"><h2>Merchant policy research</h2><p>Start with a policy or help-page URL from the merchant’s official website. SIR reads that public page and offers passages and links for your review. It does not establish statutory rights.</p><fieldset id="research-controls"><label>Official merchant page URL<input id="policy-url" type="url" placeholder="https://merchant.example/refund-policy"></label><label><input id="policy-official" type="checkbox"> I checked that this is the merchant’s official website.</label><button id="lookup-policy">Read official page</button><div id="policy-preview"></div><label><input id="policy-confirm" type="checkbox"> I reviewed the selected passages and their relevance to this case.</label><button id="save-policy">Save reviewed passages</button></fieldset><div id="saved-research"></div></section></div></div>
+<div id="pane-drafts" data-pane="drafts" hidden><div class="page-heading"><div><span class="eyebrow">YOUR WORDS. YOUR APPROVAL.</span><h2>Complaint</h2><p>Review your complaint and keep a clear record of what happens next.</p></div></div><section class="panel"><h2 id="draft-heading">Draft for review</h2><label id="account-only-label" hidden><input id="draft-from-account" type="checkbox"> I reviewed my complaint facts and want a draft based on my account where records are unavailable. Uncorroborated statements must be labelled. This does not override conflicting records.</label><button id="generate-draft-here" disabled>Prepare complaint from reviewed facts</button><textarea id="output" disabled aria-label="Editable complaint draft" placeholder="Your complaint will appear here after the evidence is checked."></textarea><small id="draft-state">Open a case to begin.</small><button id="save" disabled aria-describedby="draft-state">Save draft</button><small>Human edits are saved as written. Review your wording before approving export.</small><details><summary>Previous draft versions</summary><div id="draft-versions"></div></details></section><section id="email-step" style="margin-top:24px"><h2>Review, export and follow up</h2><p id="case-progress" role="status"></p><p id="draft-lifecycle-warning" role="status" style="color:#ffdf9a"></p><fieldset id="communication-controls"><label><span id="recipient-label">Complaint recipient — check the published address</span><input id="email-recipient" type="email" required maxlength="254" placeholder="Enter the merchant’s published complaint email"></label><label>Subject<input id="email-subject" maxlength="200"></label><label>Message type<select id="email-kind"><option value="complaint">Complaint</option><option value="follow-up">Follow-up</option></select></label><label>Full email preview<textarea id="email-preview" readonly></textarea></label><label><input id="email-approve-confirm" type="checkbox"> I reviewed the recipient, subject and complete message and approve this email file for export.</label><p id="export-guidance" role="status" aria-live="polite"></p><button id="approve-email" aria-describedby="export-guidance">Approve email export</button><button id="export-email" aria-describedby="export-guidance">Download approved email file</button><p id="email-request-status" role="status" aria-live="polite"></p><p>Downloading creates a local draft file. SIR does not send email.</p><details id="record-progress"><summary>Record sending, responses and resolution</summary><label>Approved message<select id="approved-message"></select></label><label>Date actually sent<input id="sent-date" type="date"></label><label>Follow-up review date<input id="follow-up-date" type="date"></label><label><input id="sent-confirm" type="checkbox"> I actually sent the selected approved message outside SIR.</label><button id="record-sent" aria-describedby="sent-guidance">Record as sent</button><p id="follow-up-guidance" role="status"></p><button id="prepare-follow-up" aria-describedby="follow-up-guidance">Prepare follow-up draft</button><p id="sent-guidance" role="status"></p><button id="go-record-sent" type="button">Go to Record as sent</button><label><input id="unsolicited-response" type="checkbox"> This is an unsolicited merchant communication, with no outgoing message to link.</label><label>Response received date<input id="response-date" type="date"></label><label>Merchant response (fictional or anonymised)<textarea id="response-text" maxlength="30000" style="min-height:100px"></textarea></label><p id="response-guidance" role="status"></p><button id="record-response" aria-describedby="response-guidance">Save merchant response</button><label>Resolution outcome<input id="resolution-note" maxlength="2000" placeholder="For example: fictional refund received"></label><label><input id="resolution-confirm" type="checkbox"> Mark this case resolved.</label><p id="resolution-guidance" role="status"></p><button id="resolve-case" aria-describedby="resolution-guidance">Save resolution</button></details></fieldset><h3>Case history</h3><div id="case-history"></div><h3>Correspondence</h3><div id="case-correspondence"></div></section></div>
+<footer class="app-footer">SIR helps you put the facts in order. You decide what happens next.</footer></main>
+<script type="module">import {isGeneral,generalFieldNames,generalLabels,generalRequired} from "/complaint-model.js";
+import {caseFormValues,correspondenceDates,restoreDates,displayDate,exportMatchesDraft,intakeReadiness,compactIntakeFacts,exportGuidance,guidedAction,communicationReadiness,stageGuidance,emailPreview,recipientDescription,visibleStatus} from "/ui-state.js";
+
+elInit();
+function elInit(){document.getElementById('case').before(document.getElementById('intake-template').content.cloneNode(true));const checks=document.createElement('p');checks.id='checks';checks.setAttribute('role','status');document.getElementById('case').after(checks);const warning=document.createElement('p');warning.id='review-warning';document.getElementById('output').before(warning);const button=document.createElement('button');button.id='regenerate';button.textContent='Generate a fresh draft';document.getElementById('save').after(button)}
+let current, busy=false;
+const el=id=>document.getElementById(id);
+const dirty=()=>Boolean(current)&&el('output').value!==(current.draft||'');
+function normalizedEvidence(e){return e.type==='cancellation'?{id:e.id,type:e.type,merchant:e.merchant||'StreamNest',date:e.date}:{id:e.id,type:e.type,merchant:e.merchant||'StreamNest',date:e.date,amount:e.amount,currency:e.currency}}
+function inputFields(){return {merchant:el('merchant').value,amount:el('amount').value,currency:el('currency').value,cancelled:el('cancelled').value,charged:el('charged').value,evidence:[...(el('e1').checked?[{id:'E1',type:'cancellation',merchant:el('e1-merchant').value,date:el('e1-date').value}]:[]),...(el('e2').checked?[{id:'E2',type:'receipt',merchant:el('e2-merchant').value,date:el('e2-date').value,amount:el('e2-amount').value,currency:el('e2-currency').value}]:[])]}}
+function savedFields(){return current?{merchant:current.merchant,amount:current.amount,currency:current.currency,cancelled:current.cancelled,charged:current.charged,evidence:current.evidence.map(normalizedEvidence)}:inputFields()}
+const detailsDirty=()=>Boolean(current)&&JSON.stringify(inputFields())!==JSON.stringify(savedFields());
+function say(text){const p=document.createElement('p');p.textContent=text;el('messages').append(p)}
+async function api(path,method='GET',input){const r=await fetch(path,{method,headers:input?{'Content-Type':'application/json'}:undefined,body:input?JSON.stringify(input):undefined});const body=await r.json();if(!r.ok)throw Error(body.error||'Request failed');return body}
+function controls(){for(const id of ['new','refresh','resume'])el(id).disabled=busy;el('check').disabled=busy||!current||detailsDirty();el('draft').disabled=busy||!current||current.draft!==null||dirty()||detailsDirty();el('save').disabled=busy||!current||!dirty()||detailsDirty();el('output').disabled=busy||!current;el('saved').disabled=busy;el('fields').disabled=busy;el('save-details').disabled=busy||!current||!detailsDirty();el('regenerate').disabled=busy||!current||current.draft===null||dirty()||detailsDirty();el('details-state').textContent=detailsDirty()?'Unsaved case details — save them before checking evidence or drafting.':'';el('review-warning').textContent=current?.draftNeedsReview?'Case details changed. This saved draft may contain outdated facts. Check evidence and generate a fresh draft; the previous version will be kept.':'';el('draft-state').textContent=!current?'Open a case to begin.':dirty()?'Unsaved edits — click Save draft.':current.draft===null?'No draft saved yet.':`Saved draft · revision ${current.revision||0}${current.updatedAt?' · '+new Date(current.updatedAt).toLocaleString():''}`}
+async function list(selected=current?.id){const cases=await api('/api/cases');el('saved').replaceChildren();if(!cases.length){const o=document.createElement('option');o.value='';o.textContent='No saved cases yet';el('saved').append(o)}for(const c of cases){const o=document.createElement('option');o.value=c.id;o.textContent=`${c.merchant} · ${c.currency} ${c.amount} · ${c.charged} · ${c.id.slice(0,8)}${c.hasDraft?' · draft saved':''}`;el('saved').append(o)}if(cases.some(c=>c.id===selected))el('saved').value=selected}
+function card(title,lines){const div=document.createElement('div');div.className='card';const strong=document.createElement('strong');strong.textContent=title;div.append(strong);for(const line of lines){const p=document.createElement('p');p.textContent=line;div.append(p)}el('case').append(div)}
+function show(c){current=c;for(const [id,value] of Object.entries(caseFormValues(c))){if(['e1','e2'].includes(id))el(id).checked=value;else el(id).value=value;}el('checks').replaceChildren();el('case').replaceChildren();card(c.merchant+' — fictional dispute',[`Charge: ${c.currency} ${c.amount} on ${c.charged}`,`Cancelled effective: ${c.cancelled}`,'Requested outcome: refund',`Case reference: ${c.id}`]);for(const e of c.evidence)card(`${e.id} · ${e.type==='cancellation'?'Cancellation confirmation':'Billing receipt'}`,[e.sourceId?'Human-reviewed source · '+(e.merchant||c.merchant)+' · '+e.date+(e.type==='receipt'?' · '+e.currency+' '+e.amount:'')+' · original text retained below':e.text]);if(!c.evidence.length)card('No evidence selected',['Include fictional records in the case editor.']);el('output').value=c.draft||'';controls()}
+async function displayChecks(){const result=await api('/api/cases/'+current.id+'/check','POST');const box=el('checks');box.replaceChildren();const summary=document.createElement('p');summary.textContent=result.ready?'Evidence checked: records agree. This does not establish refund entitlement.':result.issues.join('\n');box.append(summary);if(result.comparisons.length){const table=document.createElement('table');table.style.width='100%';const header=document.createElement('tr');for(const title of ['Field','Case says','Evidence says','Result']){const cell=document.createElement('th');cell.textContent=title;header.append(cell)}table.append(header);for(const row of result.comparisons){const tr=document.createElement('tr');for(const value of [row.label,row.claimed,row.recorded+' ('+row.source+')',row.match?'Match':'Conflict']){const td=document.createElement('td');td.textContent=value;tr.append(td)}table.append(tr)}box.append(table)}return result}
+function canLeave(){return !(dirty()||detailsDirty())||confirm('You have unsaved edits. Discard them and continue?')}
+function reportStatus(text){el('status').textContent=text;} async function run(fn){if(busy)return;busy=true;controls();try{reportStatus('Working.');await fn();if(current)await displayChecks();if(el('status').textContent==='Working.')reportStatus('')}catch(e){reportStatus(e.message)}finally{busy=false;controls()}}
+window.addEventListener('beforeunload',e=>{if(dirty()||detailsDirty()){e.preventDefault();e.returnValue=''}});
+el('intake').oninput=controls;
+el('intake').onsubmit=e=>{e.preventDefault();if(dirty()){el('status').textContent='Save your draft edits before saving case details, or reopen the case to discard them.';return}run(async()=>{show(await api('/api/cases/'+current.id,'PUT',{...inputFields(),revision:current.revision||0}));await list();say('Case details and selected fictional evidence saved. The comparison below shows any missing records or conflicts.')})};
+el('create-custom').onclick=()=>{if(!el('intake').reportValidity())return;const input=inputFields();if(dirty()&&!confirm('Discard unsaved draft edits and create the new case?'))return;run(async()=>{show(await api('/api/cases','POST',input));await list();say('New fictional case saved from your details. Check the evidence next.')})};
+let regenerationCase=null,regenerationRevision=null;
+const regenPrompt=document.createElement('div');regenPrompt.id='regeneration-confirmation';regenPrompt.hidden=true;regenPrompt.setAttribute('role','group');regenPrompt.setAttribute('aria-label','Confirm draft regeneration');
+const regenCopy=document.createElement('p');regenCopy.textContent='Generate a fresh draft from the saved facts? Your previous saved draft will be retained in revision history.';
+const regenConfirm=document.createElement('button');regenConfirm.id='confirm-regeneration';regenConfirm.textContent='Confirm fresh draft';
+const regenCancel=document.createElement('button');regenCancel.textContent='Keep current draft';regenCancel.onclick=()=>{regenPrompt.hidden=true;};
+regenPrompt.append(regenCopy,regenConfirm,regenCancel);el('regenerate').after(regenPrompt);
+el('regenerate').onclick=()=>{regenerationCase=current.id;regenerationRevision=current.revision||0;regenPrompt.hidden=false;regenConfirm.focus();};
+regenConfirm.onclick=()=>{regenPrompt.hidden=true;if(current?.id!==regenerationCase||(current.revision||0)!==regenerationRevision){reportStatus('The case changed. Review it before regenerating.');return;}run(async()=>{show(await api('/api/cases/'+current.id+'/regenerate','POST',{revision:regenerationRevision,accountOnlyConfirmed:el('draft-from-account').checked}));await list();say('A fresh evidence-backed draft is saved. The previous version is retained in history. Review the new wording.')});};
+el('output').oninput=controls;
+el('refresh').onclick=()=>run(()=>list());
+el('new').onclick=()=>{if(!canLeave())return;run(async()=>{show(await api('/api/cases','POST'));await list();say('I saved a fictional StreamNest case with a cancellation confirmation and a subsequent GBP 14.99 receipt. Check the evidence next.')})};
+el('resume').onclick=()=>{if(!canLeave())return;run(async()=>{const id=el('saved').value;if(!id)throw Error('Create a fictional case first.');show(await api('/api/cases/'+id));say(current.draft!==null?'Your saved case and draft are restored. You can edit the draft and save a new revision.':'Your case is restored. Check its evidence before preparing a complaint.')})};
+el('check').onclick=()=>run(async()=>{const result=await displayChecks();say(result.ready?'The fictional records agree. You can prepare a complaint for human review.':result.issues.join(' '))});
+el('draft').onclick=()=>run(async()=>{show(await api('/api/cases/'+current.id+'/draft','POST',{revision:current.revision||0,accountOnlyConfirmed:el('draft-from-account').checked}));await list();say('Your evidence-backed draft is generated and saved. Review it, then use Save draft after any edits. Nothing has been sent.')});
+el('save').onclick=()=>run(async()=>{show(await api('/api/cases/'+current.id+'/draft','PUT',{text:el('output').value,revision:current.revision||0}));await list();say('Your edited draft is saved as revision '+current.revision+'. Nothing has been sent.')});
+let sourcePreview = null;
+const originalControls = controls;
+controls = function(){originalControls();el('paste-fields').disabled=busy||!current;};
+function invalidateSource(){el('source-text').readOnly=false;sourcePreview=null;el('source-review').hidden=true;el('source-confirm').checked=false;}
+for(const id of ['source-title','source-type','source-text'])el(id).addEventListener('input',()=>{if(sourcePreview?.uploadId){el('source-title').value=sourcePreview.source.title;el('source-type').value=sourcePreview.source.type;el('source-text').value=sourcePreview.source.text;el('source-confirm').checked=false;controls();return;}invalidateSource();controls();});
+for(const id of ['source-merchant','source-date','source-amount','source-currency','source-reference'])el(id).addEventListener('input',()=>{el('source-confirm').checked=false;controls();});
+const originalShow=show;
+show=function(c){originalShow(c);for(const doc of c.documents||[]){card('Saved source: '+doc.title,[doc.type+' · '+new Date(doc.addedAt).toLocaleString(),'Original source retained.','Review corrections: '+(Object.keys(doc.corrections||{}).join(', ')||'none')]);const details=document.createElement('details');const summary=document.createElement('summary');summary.textContent='Read original source text';const original=document.createElement('pre');original.textContent=doc.text;details.append(summary,original);el('case').lastElementChild.append(details);if(doc.file){const a=document.createElement('a');a.href='#';a.textContent='Download original '+doc.file.name;a.onclick=e=>{e.preventDefault();const bytes=Uint8Array.from(atob(doc.file.base64),ch=>ch.charCodeAt(0));const url=URL.createObjectURL(new Blob([bytes],{type:doc.file.mime}));const download=document.createElement('a');download.href=url;download.download=doc.file.name;download.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};el('case').lastElementChild.append(a);const info=document.createElement('p');info.textContent='Original file: '+doc.file.bytes+' bytes · SHA-256 '+doc.file.sha256;el('case').lastElementChild.append(info);}}invalidateSource();};
+el('analyse-source').onclick=()=>run(async()=>{
+  if(sourcePreview?.uploadId)return;
+  sourcePreview=await api('/api/evidence/preview','POST',{title:el('source-title').value,type:el('source-type').value,text:el('source-text').value});
+  for(const key of ['merchant','date','amount','currency','reference'])el('source-'+key).value=sourcePreview.candidates[key]?.value||'';
+  el('receipt-fields').hidden=!isGeneral(current)&&sourcePreview.source.type!=='receipt';
+  const notes=Object.entries(sourcePreview.candidates).map(([key,c])=>`${key}: ${c.ambiguous?'conflicting values — review required':c.value||'not found — enter from source'}${c.quotes.length?' | source: '+c.quotes.join(' / '):''}`);
+  el('source-suggestions').textContent=notes.join('\n');el('source-suggestions').style.whiteSpace='pre-line';
+  el('source-date-role').value=sourcePreview.candidates.date.role||'none';el('source-confirm').checked=false;el('source-review').hidden=false;
+});
+el('save-source').onclick=()=>{
+  if(!sourcePreview||!el('source-confirm').checked){el('status').textContent='Review the source and confirm the extracted facts first.';return;}
+  if(dirty()||detailsDirty()){el('status').textContent='Save your draft and case edits before adding evidence.';return;}
+  const input={...sourcePreview.source,compareToCase:el('source-compare').checked,dateRole:el('source-date-role').value,confirmed:true,revision:current.revision||0,facts:{merchant:el('source-merchant').value,date:el('source-date').value}};
+  if(sourcePreview.uploadId)input.uploadId=sourcePreview.uploadId;
+  if(isGeneral(current))input.facts.reference=el('source-reference').value;
+  if(input.type==='receipt'||isGeneral(current))Object.assign(input.facts,{amount:el('source-amount').value,currency:el('source-currency').value});
+  run(async()=>{show(await api('/api/cases/'+current.id+'/evidence','POST',input));await list();say('Reviewed evidence and its original source text are saved. Case claims are unchanged; check the comparison for discrepancies.');});
+};
+
+
+el('upload-document').onclick=()=>run(async()=>{
+ if(dirty()||detailsDirty())throw Error('Save your draft and case edits before uploading evidence.');
+ const file=el('document-file').files[0];if(!file)throw Error('Choose a text PDF or .txt file.');if(file.size>2*1024*1024)throw Error('Choose a file no larger than 2 MB.');
+ const base64=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result).split(',')[1]);reader.onerror=()=>reject(Error('The file could not be read. Try selecting it again.'));reader.readAsDataURL(file);});
+ sourcePreview=await api('/api/documents/preview','POST',{caseId:current.id,revision:current.revision||0,name:file.name,base64,type:el('source-type').value});
+ el('source-title').value=sourcePreview.source.title;el('source-text').value=sourcePreview.source.text;el('source-text').readOnly=true;
+ for(const key of ['merchant','date','amount','currency','reference'])el('source-'+key).value=sourcePreview.candidates[key]?.value||'';
+ el('receipt-fields').hidden=!isGeneral(current)&&sourcePreview.source.type!=='receipt';
+ el('source-suggestions').textContent=sourcePreview.limitation+'\n'+Object.entries(sourcePreview.candidates).map(([key,c])=>key+': '+(c.ambiguous?'conflicting values — review required':c.value||'not found — enter from source')+(c.quotes.length?' | source: '+c.quotes.join(' / '):'')).join('\n');el('source-suggestions').style.whiteSpace='pre-line';
+ el('source-date-role').value=sourcePreview.candidates.date.role||'none';el('source-confirm').checked=false;el('source-review').hidden=false;
+});
+
+let researchPreview=null;
+const beforeResearchControls=controls;
+controls=function(){beforeResearchControls();el('research-controls').disabled=busy||!current;el('save-policy').disabled=busy||!current||!researchPreview;};
+function clearResearchPreview(){researchPreview=null;el('policy-preview').replaceChildren();el('policy-confirm').checked=false;controls();}
+el('policy-url').addEventListener('input',()=>{el('policy-official').checked=false;clearResearchPreview();});
+el('policy-official').addEventListener('change',clearResearchPreview);
+const beforeResearchShow=show;
+show=function(c){beforeResearchShow(c);clearResearchPreview();el('saved-research').replaceChildren();for(const r of c.research||[]){const div=document.createElement('div');div.className='card';const title=document.createElement('strong');title.textContent='Reviewed policy: '+r.title;div.append(title);const link=document.createElement('a');link.href=r.url;link.textContent=r.url;link.target='_blank';link.rel='noopener noreferrer';div.append(document.createElement('br'),link);const stamp=document.createElement('p');stamp.textContent='Retrieved '+r.retrievedAt+' · reviewed '+r.reviewedAt;div.append(stamp);for(const passage of r.passages){const p=document.createElement('p');p.textContent=passage.text+(passage.truncated?' (truncated excerpt)':'');div.append(p);}if(c.researchNeedsReview){const warning=document.createElement('p');warning.textContent='The merchant changed. Review policy research again.';div.append(warning);}el('saved-research').append(div);}};
+el('lookup-policy').onclick=()=>run(async()=>{
+ if(dirty()||detailsDirty())throw Error('Save case and draft edits before researching.');
+ researchPreview=await api('/api/cases/'+current.id+'/research-preview','POST',{url:el('policy-url').value,confirmedOfficial:el('policy-official').checked,revision:current.revision||0});
+ const box=el('policy-preview');box.replaceChildren();const heading=document.createElement('p');heading.textContent=researchPreview.title+' · retrieved '+researchPreview.retrievedAt;box.append(heading);const note=document.createElement('p');note.textContent=researchPreview.limitation;box.append(note);
+ for(const passage of researchPreview.passages){const label=document.createElement('label');const checkbox=document.createElement('input');checkbox.type='checkbox';checkbox.value=passage.id;checkbox.className='policy-passage';checkbox.addEventListener('change',()=>{el('policy-confirm').checked=false;});label.append(checkbox,document.createTextNode(' '+passage.text+(passage.truncated?' (truncated excerpt)':'')));box.append(label);}
+ if(!researchPreview.passages.length){const p=document.createElement('p');p.textContent='No relevant passages were found on this page. Try one of the policy or contact links below.';box.append(p);}
+ for(const found of researchPreview.links){const button=document.createElement('button');button.textContent='Use page: '+(found.label||found.url);button.onclick=()=>{el('policy-url').value=found.url;clearResearchPreview();};box.append(button);}
+ for(const contact of researchPreview.contacts){const p=document.createElement('p');p.textContent='Observed contact: '+contact.email+' · '+contact.note;box.append(p);}
+ el('policy-confirm').checked=false;
+});
+el('save-policy').onclick=()=>run(async()=>{if(dirty()||detailsDirty())throw Error('Save your draft and case edits first.');const passageIds=[...document.querySelectorAll('.policy-passage:checked')].map(node=>node.value);show(await api('/api/cases/'+current.id+'/research','POST',{previewId:researchPreview.id,revision:current.revision||0,passageIds,confirmed:el('policy-confirm').checked}));await list();say('Reviewed policy passages are saved with their source URL and retrieval date. Any existing complaint is retained for review.');});
+
+const beforeCommunicationControls=controls;
+function draftUiState(c){const kind=c?.draftKind||(/^Subject:\s*Follow-up\b/i.test(c?.draft||'')?'follow-up':'complaint');const sent=(c?.communications||[]).filter(m=>m.sentDate).at(-1);const answered=Boolean(sent&&(c.communications||[]).some(m=>m.kind==='response'&&(m.replyTo===sent.id||(m.unsolicited&&m.recordedAt>=(sent.sentRecordedAt||sent.approvedAt||'')))));const reason=c?.resolution?'Case resolved. This draft is retained as history; approval and export are disabled.':kind==='follow-up'&&answered?'A merchant response is recorded. This old unanswered follow-up is retained as history; approval and export are disabled.':'';return {kind,historical:Boolean(reason),reason};}
+controls=function(){beforeCommunicationControls();const state=draftUiState(current);el('communication-controls').disabled=busy||!current;el('approve-email').disabled=busy||!current?.draft||dirty()||detailsDirty()||Boolean(current?.draftNeedsReview)||Boolean(current?.researchNeedsReview)||state.historical;el('export-email').disabled=busy||!current?.communications?.some(m=>m.approvedAt)||state.historical;el('prepare-follow-up').disabled=busy||!current||state.historical;el('output').disabled=busy||!current||state.historical;if(state.historical){el('save').disabled=true;el('regenerate').disabled=true;}el('draft-lifecycle-warning').textContent=state.reason;el('draft-heading').textContent=state.historical?'Historical draft (retained)':'Draft for review';};
+function refreshEmailPreview(){el('email-approve-confirm').checked=false;el('email-preview').value=emailPreview(el('email-recipient').value,el('email-subject').value,el('output').value);el('recipient-guidance')&&(el('recipient-guidance').textContent=recipientDescription(el('email-recipient').value));}
+for(const id of ['email-recipient','email-subject','email-kind','output'])el(id).addEventListener('input',refreshEmailPreview);
+const beforeCommunicationShow=show;
+show=function(c){beforeCommunicationShow(c);const messages=(c.communications||[]).filter(m=>m.approvedAt);const latest=messages.at(-1);el('email-recipient').value=latest?.recipient||'';el('email-subject').value=latest?.draftText===c.draft?latest.subject:c.draft?.match(/^Subject:\s*(.*)/)?.[1]||'Request to review subscription charge';el('email-kind').value=latest?.draftText===c.draft?latest.kind:draftUiState(c).kind;el('approved-message').replaceChildren();for(const message of messages){const option=document.createElement('option');option.value=message.id;option.textContent=message.subject+' → '+message.recipient+(message.sentDate?' · sent '+message.sentDate:' · prepared only');el('approved-message').append(option);}if(latest)el('approved-message').value=latest.id;for(const [id,value] of Object.entries(correspondenceDates(c,latest?.id)))el(id).value=value;for(const id of ['sent-confirm','resolution-confirm'])el(id).checked=false;for(const id of ['response-text','resolution-note'])el(id).value='';el('case-progress').textContent=(c.progress?.status||'Case open')+' · '+(c.progress?.nextAction||'Review the evidence and draft.');el('case-history').replaceChildren();for(const entry of c.events||[]){const p=document.createElement('p');p.textContent=new Date(entry.at).toLocaleString()+' · '+entry.text;el('case-history').append(p);}if(!c.events?.length){const p=document.createElement('p');p.textContent='New actions will appear here. Earlier draft and evidence revisions remain saved in the case.';el('case-history').append(p);}el('case-correspondence').replaceChildren();for(const message of c.communications||[]){const div=document.createElement('div');div.className='card';const p=document.createElement('p');p.textContent=message.kind==='response'?(message.unsolicited?'Unsolicited merchant communication received ':'Merchant response received ')+message.receivedDate:message.subject+' → '+message.recipient+' · '+(message.sentDate?'recorded sent '+message.sentDate:'approved for export; not recorded sent');const body=document.createElement('p');body.style.whiteSpace='pre-line';body.textContent=message.body;const details=document.createElement('details');const summary=document.createElement('summary');summary.textContent='Read saved message';details.append(summary,body);div.append(p,details);el('case-correspondence').append(div);}refreshEmailPreview();controls();};
+function communicationInput(extra){return {revision:current.revision||0,...extra};}
+function unchangedForCommunication(){if(dirty()||detailsDirty())throw Error('Save your draft and case edits before recording correspondence.');}
+el('approve-email').onclick=()=>run(async()=>{unchangedForCommunication();show(await api('/api/cases/'+current.id+'/approve','POST',communicationInput({recipient:el('email-recipient').value,subject:el('email-subject').value,kind:el('email-kind').value,approved:el('email-approve-confirm').checked})));await list();say('Email approved for local export. Nothing has been sent.');});
+el('export-email').onclick=()=>run(async()=>{unchangedForCommunication();const messageId=el('approved-message').value;if(!messageId)throw Error('Approve a message first.');const response=await fetch('/api/cases/'+current.id+'/email-export?messageId='+encodeURIComponent(messageId));if(!response.ok){const body=await response.json();throw Error(body.error||'The email could not be exported.');}await response.arrayBuffer();show(await api('/api/cases/'+current.id+'/export-request','POST',communicationInput({messageId})));await list();const a=document.createElement('a');a.href='/api/cases/'+current.id+'/email-export?messageId='+encodeURIComponent(messageId);a.download='SIR-complaint-'+current.id.slice(0,8)+'.eml';el('email-download-link')?.remove();a.id='email-download-link';a.textContent='Download the reviewed email file';a.dataset.messageId=messageId;el('email-request-status').after(a);a.click();say('Email export requested. Check your browser downloads and review the file. Nothing has been sent.');});
+el('record-sent').onclick=()=>run(async()=>{unchangedForCommunication();show(await api('/api/cases/'+current.id+'/sent','POST',communicationInput({messageId:el('approved-message').value,sentDate:el('sent-date').value,followUpDate:el('follow-up-date').value,confirmed:el('sent-confirm').checked})));await list();say('Your manual send confirmation and follow-up review date are saved.');});
+el('prepare-follow-up').onclick=()=>run(async()=>{unchangedForCommunication();show(await api('/api/cases/'+current.id+'/follow-up','POST',communicationInput({})));el('email-kind').value='follow-up';refreshEmailPreview();await list();say('Follow-up draft prepared. Review and approve it separately before export.');});
+el('record-response').onclick=()=>run(async()=>{unchangedForCommunication();show(await api('/api/cases/'+current.id+'/response','POST',communicationInput({messageId:el('unsolicited-response').checked?null:el('approved-message').value,unsolicited:el('unsolicited-response').checked,receivedDate:el('response-date').value,text:el('response-text').value})));await list();say('Merchant response saved locally against this case.');});
+el('resolve-case').onclick=()=>run(async()=>{unchangedForCommunication();show(await api('/api/cases/'+current.id+'/resolve','POST',communicationInput({confirmed:el('resolution-confirm').checked,note:el('resolution-note').value})));await list();say('Case outcome saved.');});
+let activeIntake=null,aiReady=false,scriptedMode=false;
+const evidenceControls=controls;
+controls=function(){evidenceControls();el('conversation-controls').disabled=busy;el('start-conversation').disabled=busy||!aiReady;el('send-message').disabled=busy||!aiReady||!activeIntake||Boolean(activeIntake.caseId);el('commit-intake').disabled=busy||!activeIntake?.summary.ready||Boolean(activeIntake?.caseId);};
+async function intakeList(){const sessions=await api('/api/intakes');el('saved-intakes').replaceChildren();for(const s of sessions){const option=document.createElement('option');option.value=s.id;option.textContent=s.merchant+' · '+s.id.slice(0,8)+(s.caseId?' · case created':'');el('saved-intakes').append(option);}if(activeIntake)el('saved-intakes').value=activeIntake.id;}
+function showIntake(s){activeIntake=s;el('ai-messages').replaceChildren();for(const m of s.messages){const p=document.createElement('p');p.textContent=(m.role==='user'?'You: ':'SIR (AI): ')+m.text;el('ai-messages').append(p);}const quotes=s.proposals.flatMap(p=>p.updates).map(u=>u.field+': '+u.value+' | Your words: '+u.quote);el('intake-summary').textContent=s.summary.lines.join('\n')+'\n\n'+s.summary.nextAction+(s.summary.issues.length?'\n'+s.summary.issues.join('\n'):'')+(quotes.length?'\n\nProposed facts and supporting quotations:\n'+quotes.join('\n'):'')+(s.caseId?'\nCase saved: '+s.caseId:'');el('intake-confirm').checked=false;controls();}
+el('start-conversation').onclick=()=>run(async()=>{showIntake(await api('/api/intakes','POST'));el('ai-message').value='';await intakeList();});
+el('open-conversation').onclick=()=>run(async()=>{const id=el('saved-intakes').value;if(!id)throw Error('Start a conversation first.');showIntake(await api('/api/intakes/'+id));});
+el('ai-message').addEventListener('input',()=>{el('intake-confirm').checked=false;});
+el('send-message').onclick=()=>{if(!el('ai-consent').checked){reportStatus('Confirm sharing this fictional or anonymised conversation with the AI service first.');return;}const message=el('ai-message').value;run(async()=>{if(!activeIntake)showIntake(await api('/api/intakes','POST'));showIntake(await api('/api/intakes/'+activeIntake.id+'/turn','POST',{message,revision:activeIntake.revision,shareConfirmed:true}));el('ai-message').value='';await intakeList();});};
+el('commit-intake').onclick=()=>{if(!el('intake-confirm').checked){reportStatus('Review and confirm the proposed facts first.');return;}if(!canLeave())return;const committedIntakeId=activeIntake.id;run(async()=>{const c=await api('/api/intakes/'+committedIntakeId+'/commit','POST',{revision:activeIntake.revision,confirmed:true});show(c);showIntake(await api('/api/intakes/'+committedIntakeId));await list();await intakeList();say('Case created from reviewed conversation facts. Review supporting records, or choose the account-only option on Evidence.');});};
+run(async()=>{await list();const status=await api('/api/ai/status');aiReady=status.configured;el('ai-availability').textContent=status.message;if(status.mode==='scripted'){scriptedMode=true;el('ai-consent').checked=true;el('ai-consent').closest('label').hidden=true;el('recipient-label').textContent='Recipient - check the address; example shown for testing only';el('email-recipient').placeholder='complaints@acorn.example (test only)';el('policy-step').querySelector('p').textContent='Website fetching is disabled in this offline scripted demo. Review the included fictional evidence instead.';el('scripted-guide').hidden=false;el('scripted-guide').open=true;el('ai-consent').parentElement.lastChild.textContent=' Use the local scripted conversation. Nothing is sent to an AI service.';el('composer-help').textContent='Scripted Alexa+ simulation • Local case workflow • No email is sent';const examples=["My complaint is about Acorn Outdoor Supplies.","I paid GBP 89.00 on 2026-10-01 for a camping stove that was never delivered.","I want a refund of GBP 89.00 and written confirmation."];examples.forEach((message,i)=>{const b=document.createElement('button');b.type='button';b.textContent=(i+1)+'. '+message;b.onclick=()=>{el('ai-message').value=message;controls();el('ai-message').focus();};el('demo-examples').append(b);});}await intakeList();});
+
+
+
+// Presentation layer uses the existing deterministic API and approval rules.
+const paneScroll={};let activePane='assistant',latestChecks=null;
+const paneNames={assistant:'Tell SIR',cases:'My cases',evidence:'Evidence',drafts:'Complaint',email:'Email',activity:'Outcome',history:'History'};
+function navigate(name,focus=true){
+  if(!paneNames[name])return;
+  if(focus&&activePane!==name&&el('status').dataset.error!=='true'&&/saved|generated|restored|created|approved|export requested/i.test(el('status').textContent))reportStatus('');
+  paneScroll[activePane]=window.scrollY;activePane=name;
+  for(const node of document.querySelectorAll('[data-pane]'))node.hidden=node.dataset.pane!==name;
+  for(const button of document.querySelectorAll('[data-nav]')){button.setAttribute('aria-current',button.dataset.nav===name?'page':'false');}
+  if(focus){const heading=el('pane-'+name).querySelector('h2');heading?.focus({preventScroll:true});window.scrollTo({top:paneScroll[name]||0,behavior:'instant'});}
+  if(typeof refreshGuide==='function')refreshGuide();
+}
+for(const button of document.querySelectorAll('[data-nav]'))button.onclick=()=>navigate(button.dataset.nav);
+for(const heading of document.querySelectorAll('[data-pane] h2'))heading.tabIndex=-1;
+el('editor').open=false;
+function renderMessages(messages){
+  el('ai-messages').replaceChildren();
+  for(const message of messages){const item=document.createElement('article');item.className='bubble '+(message.role==='user'?'user':'assistant');const label=document.createElement('strong');label.textContent=message.role==='user'?'You':message.origin==='workflow'?'SIR · workflow guidance':'SIR';const body=document.createElement('p');body.textContent=message.text;item.append(label,body);el('ai-messages').append(item);}
+}
+function revealLatestReply(){requestAnimationFrame(()=>{const box=el('ai-messages');const latest=box.querySelector('article:last-child');if(!latest)return;box.scrollTop+=latest.getBoundingClientRect().top-box.getBoundingClientRect().top-12;box.scrollIntoView({block:'nearest',behavior:'instant'});});}
+const baseShowIntake=showIntake;
+showIntake=function(s){baseShowIntake(s);renderMessages(s.messages);revealLatestReply();el('fact-review').hidden=Boolean(s.caseId)||!s.summary.ready;el('fact-review').open=s.summary.ready&&!s.caseId;if(!s.caseId){const quotations=s.proposals.flatMap(p=>p.updates).map(u=>u.field+': '+u.value+' | Your words: '+u.quote);el('intake-summary').textContent=s.summary.lines.join('\n')+'\n\n'+intakeReadiness(s).reason+(quotations.length?'\n\nProposed facts and supporting quotations:\n'+quotations.join('\n'):'');}el('ai-message').placeholder=s.caseId?'This intake is saved. Continue using the case actions below.':'Tell me what happened…';};
+const baseSay=say;
+say=function(text){baseSay(text);reportStatus(text);const item=document.createElement('article');item.className='bubble assistant system';const label=document.createElement('strong');label.textContent='SIR · case guidance';const p=document.createElement('p');p.textContent=text;item.append(label,p);el('ai-messages').append(item);};
+const baseShow=show;
+show=function(c){
+  const same=current?.id===c.id;
+  const pending=same?{caseId:c.id,messageId:el('approved-message').value,values:Object.fromEntries(['sent-date','follow-up-date','response-date'].map(id=>[id,el(id).value]))}:null;
+  baseShow(c);
+  for(const [id,value] of Object.entries(restoreDates(c,el('approved-message').value,pending)))el(id).value=value;
+  if(!same){
+    activeIntake=null;el('intake-summary').textContent='';el('fact-review').hidden=true;el('ai-message').value='';
+    renderMessages(c.conversation||[]);el('messages').replaceChildren();
+    if(c.intakeId)api('/api/intakes/'+c.intakeId).then(s=>{if(current?.id===c.id)showIntake(s);}).catch(()=>reportStatus('Case restored. Its saved transcript is available; the intake could not be reopened.'));
+  }
+  el('case-strip-title').textContent=c.merchant+' · '+c.currency+' '+c.amount;
+  el('case-strip-status').textContent=c.progress?.status?.replaceAll('-',' ')||'Case open';
+  el('case-strip-next').textContent=c.progress?.nextAction||'Review your evidence.';
+  el('case-strip').hidden=false;
+  const versions=el('draft-versions');versions.replaceChildren();
+  for(const version of c.draftHistory||[]){const details=document.createElement('details');const summary=document.createElement('summary');summary.textContent='Earlier draft · revision '+(version.revision??'—');const pre=document.createElement('pre');pre.textContent=version.text||version.draft||'No draft text recorded';details.append(summary,pre);versions.append(details);}
+  controls();
+};
+el('approved-message').addEventListener('change',()=>{for(const [id,value] of Object.entries(correspondenceDates(current,el('approved-message').value)))el(id).value=value;});
+const beforeGuidedChecks=displayChecks;
+displayChecks=async function(){const result=await beforeGuidedChecks();latestChecks={caseId:current.id,revision:current.revision,result};
+  if(!current?.resolution){el('context-title').textContent=result.ready?(current.draft?'Review your complaint':'Evidence agrees'):'Evidence needs attention';el('context-copy').textContent=result.ready?'The saved records agree. '+(current.draft?'Review the draft and approve an export when you are satisfied.':'You can prepare a complaint for review.'):'Let’s resolve this before drafting: '+result.issues.join(' ');}
+  for(const row of el('checks').querySelectorAll('tr')){if(row.lastElementChild?.textContent==='Conflict')row.style.background='#fff0d6';}
+  return result;
+};
+const baseList=list;
+list=async function(selected=current?.id){await baseList(selected);const cases=await api('/api/cases');const box=el('case-list');box.replaceChildren();el('case-count').textContent=cases.length+' saved '+(cases.length===1?'dispute':'disputes');
+  if(!cases.length)box.textContent='No disputes yet. Start with a conversation and we’ll take it from there.';
+  for(const c of cases){const item=document.createElement('article');item.className='case-tile';const top=document.createElement('div');top.className='tile-top';const h=document.createElement('h3');h.textContent=c.merchant;const status=document.createElement('span');status.className='badge';status.textContent=c.status.replaceAll('-',' ');top.append(h,status);const amount=document.createElement('p');amount.className='case-amount';amount.textContent=c.currency+' '+c.amount;const summary=document.createElement('p');summary.textContent='Charged after cancellation · '+displayDate(c.charged);const next=document.createElement('p');next.textContent=c.nextAction;const time=document.createElement('small');time.textContent=c.updatedAt?'Last activity '+new Date(c.updatedAt).toLocaleString('en-GB'):'No activity date recorded';const open=document.createElement('button');open.textContent='Open case';open.onclick=()=>{if(!canLeave())return;run(async()=>{show(await api('/api/cases/'+c.id));el('saved').value=c.id;navigate('assistant');say(current.resolution?'Your resolved case and its history are restored.':'Your case is restored. Let’s continue with the next step.');});};item.append(top,amount,summary,next,time,open);box.append(item);}
+};
+function resetWorkspace(){current=null;activeIntake=null;el('case-strip').hidden=true;el('messages').replaceChildren();el('output').value='';el('case').textContent='Your reviewed facts and supporting evidence will appear here.';el('checks').replaceChildren();el('fact-review').hidden=true;el('intake-summary').textContent='';el('ai-message').value='';el('email-preview').value='';el('case-history').replaceChildren();el('case-correspondence').replaceChildren();el('saved-research').replaceChildren();el('draft-versions').replaceChildren();el('intake').reset();invalidateSource();clearResearchPreview();renderMessages([]);controls();}
+async function newDispute(){if(!canLeave())return;resetWorkspace();navigate('assistant');if(aiReady){await run(async()=>{showIntake(await api('/api/intakes','POST'));await intakeList();say('Tell me what happened, which company is involved and what you would like put right.');});el('ai-message').focus();}else{say('The AI conversation is not connected. You can still enter the facts and use all evidence, drafting and export tools.');el('manual-start').hidden=false;}}
+el('new-dispute').onclick=newDispute;el('start-conversation').onclick=newDispute;
+el('open-conversation').onclick=()=>{if(!canLeave())return;const id=el('saved-intakes').value;if(!id){reportStatus('No saved conversation selected.');return;}run(async()=>{const session=await api('/api/intakes/'+id);if(session.caseId)show(await api('/api/cases/'+session.caseId));else resetWorkspace();showIntake(session);navigate('assistant');});};
+el('manual-start').onclick=()=>{navigate('evidence');el('editor').open=true;el('merchant').focus();};
+el('new-manual').onclick=()=>{if(!canLeave())return;resetWorkspace();navigate('evidence');el('editor').open=true;el('merchant').focus();};
+const oldResume=el('resume').onclick;el('resume').onclick=()=>{oldResume();navigate('assistant');};
+const oldCommit=el('commit-intake').onclick;el('commit-intake').onclick=()=>{oldCommit();};
+const oldDraft=el('draft').onclick;el('draft').onclick=()=>oldDraft();
+const oldRegenerate=el('regenerate').onclick;el('regenerate').onclick=()=>{oldRegenerate();};
+const baseControls=controls;
+controls=function(){baseControls();el('new-dispute').disabled=busy;el('new-manual').disabled=busy;el('manual-start').hidden=aiReady;el('manual-start').disabled=busy;el('check').disabled=busy||!current||detailsDirty();el('draft').disabled ||= Boolean(current?.resolution);el('ai-message').disabled=busy||!aiReady||!activeIntake||Boolean(activeIntake?.caseId);el('context-title').textContent=!current?'Your next step':current.resolution?'Case complete':current.draftNeedsReview?'Review changes':current.draft?'Review your complaint':'Gather your evidence';el('context-copy').textContent=!current?'Start a new dispute, or pick up a saved case.':current.resolution?'Your recorded outcome and correspondence are available in Complaint.':current.draftNeedsReview?'The facts or evidence changed. Check them and generate a fresh draft before approving export.':current.draft?'Review the wording, then explicitly approve an email file for export. Nothing is sent by SIR.':'Add your cancellation confirmation and billing receipt. I’ll show where the records agree or conflict.';};
+el('ai-message').addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)&&!el('send-message').disabled){e.preventDefault();el('send-message').click();}});
+el('ai-message').setAttribute('aria-describedby','composer-help');
+const guideControls=controls;controls=function(){guideControls();if(current&&!current.resolution&&latestChecks?.caseId===current.id&&latestChecks.revision===current.revision){const result=latestChecks.result;el('context-title').textContent=result.ready?(current.draftNeedsReview?'Refresh your complaint':current.draft?'Review your complaint':'Evidence agrees'):'Evidence needs attention';el('context-copy').textContent=result.ready?(current.draftNeedsReview?'The evidence agrees, but the saved draft is outdated. Generate a fresh draft in Complaint.':current.draft?'Review the draft, then explicitly approve the export. Nothing is sent by SIR.':'The saved records agree. You can prepare a complaint for review.'):'Let’s resolve this before drafting: '+result.issues.join(' ');}};
+const beforeExportControls=controls;controls=function(){beforeExportControls();el('export-email').disabled ||= dirty()||detailsDirty()||!exportMatchesDraft(current,el('approved-message').value);const link=el('email-download-link');if(link)link.hidden=el('export-email').disabled||link.dataset.messageId!==el('approved-message').value;};
+const beforeIntakeGuideControls=controls;controls=function(){beforeIntakeGuideControls();const state=intakeReadiness(activeIntake,el('intake-confirm').checked);el('commit-intake').disabled=busy||!state.canCreate;el('intake-blocker').textContent=state.reason;if(!current&&activeIntake){el('context-title').textContent=state.title;el('context-copy').textContent=state.reason;}};
+el('intake-confirm').addEventListener('change',controls);
+el('approved-message').addEventListener('change',controls);
+el('output').addEventListener('input',controls);
+// General complaint presentation. Legacy saved cases retain their original controls.
+const generalInputBase=inputFields,generalSavedBase=savedFields;
+inputFields=function(){
+  if(current&&!isGeneral(current))return generalInputBase();
+  return {caseType:'general',...Object.fromEntries(generalFieldNames.map(key=>[key,el(key).value]))};
+};
+savedFields=function(){return current&&isGeneral(current)?{caseType:'general',...Object.fromEntries(generalFieldNames.map(key=>[key,current[key]||'']))}:generalSavedBase();};
+function generalMode(mode){
+  for(const key of ['issue','desiredOutcome','complaintType','expected','actual','priorContact','incidentDate','reference'])el(key).closest('label').hidden=!mode;
+  for(const id of ['e1','e2'])el(id).closest('label').hidden=mode;
+  document.querySelector('#fields > details:not(.advanced-case)').hidden=mode;
+  document.querySelector('#fields > p').hidden=mode;
+  for(const key of ['cancelled','charged','amount'])el(key).required=!mode;
+  for(const key of ['issue','desiredOutcome'])el(key).required=mode;
+  for(const option of el('source-type').options)option.disabled=!mode&&!['cancellation','receipt'].includes(option.value);
+  el('source-title').placeholder=mode?'Appointment, order, receipt or correspondence':'Cancellation confirmation email';
+  el('source-text').placeholder=mode?'Paste the relevant source text. Unknown facts can stay blank.':'Paste the cancellation or billing source text.';
+  el('source-comparison').hidden=!mode;el('source-reference-label').hidden=!mode;
+  el('account-only-label').hidden=!mode;
+  el('source-date').closest('label').querySelector('span').textContent=mode?'Date in source (optional)':'Date recorded in source';
+  el('source-merchant').closest('label').querySelector('span').textContent=mode?'Company in source (optional)':'Merchant recorded in source';
+  el('evidence-help').textContent=mode?'Add the records relevant to this complaint. Review each source, leave unknown facts blank, and choose whether it should be compared with case facts. Consumer statements are clearly labelled. Original sources stay in history when excluded.':'Add cancellation and billing records for this legacy case. Saving replaces the selected E1 or E2 record after review.';
+}
+function replaceCard(node,title,lines){node.replaceChildren();const strong=document.createElement('strong');strong.textContent=title;node.append(strong);for(const line of lines){if(!line)continue;const p=document.createElement('p');p.textContent=line;node.append(p);}}
+const beforeGeneralShow=show;
+show=function(c){
+  const changed=current?.id!==c.id;
+  beforeGeneralShow(c);generalMode(isGeneral(c));
+  el('draft-from-account').checked=Boolean(c.accountOnlyConfirmed);
+  if(isGeneral(c)){
+    const cards=el('case').querySelectorAll('.card');
+    replaceCard(cards[0],c.merchant+' — complaint',[c.issue,'Requested outcome: '+c.desiredOutcome,c.amount?'Amount: '+(c.currency||'Currency unspecified')+' '+c.amount:'No financial amount supplied',c.incidentDate?'Relevant event: '+displayDate(c.incidentDate):'',c.reference?'Reference: '+c.reference:'','Case reference: '+c.id]);
+    if(!c.evidence.length)replaceCard(cards[1],'No supporting records supplied',['Add relevant records, or explicitly choose an account-only draft in Complaint.']);
+    c.evidence.forEach((record,i)=>{
+      const node=cards[i+1];replaceCard(node,record.id+' · '+record.type+(record.active===false?' · excluded':' · included'),[record.type==='statement'?'Consumer account — not independent corroboration':'Human-reviewed source — not authenticated',record.merchant,record.date,record.amount?(record.currency||'Currency unspecified')+' '+record.amount:'',record.compareToCase===false?'Context only; structured comparisons disabled':'Compared where both the case and source supply relevant facts',record.statusReason?'Status reason: '+record.statusReason:'']);
+      const button=document.createElement('button');button.textContent=record.active===false?'Include in current checks':'Exclude from current checks';button.disabled=Boolean(c.resolution);button.onclick=()=>{if(dirty()||detailsDirty()){reportStatus('Save case and draft edits before changing source status.');return;}const reason=prompt('Why should '+record.id+' be '+(record.active===false?'included':'excluded')+'? The source will remain in history.');if(!reason?.trim())return;run(async()=>{show(await api('/api/cases/'+current.id+'/evidence-status','POST',{revision:current.revision||0,evidenceId:record.id,active:record.active===false,reason,confirmed:true}));await list();});};node.append(button);
+    });
+    el('case-strip-title').textContent=c.merchant+(c.amount?' · '+(c.currency||'unspecified currency')+' '+c.amount:'');
+  }
+  if(changed){el('source-type').value=isGeneral(c)?'supporting':'cancellation';el('source-title').value='';el('source-text').value='';el('document-file').value='';el('source-date-role').value='none';el('source-compare').checked=true;}
+};
+function proposedDirty(){return Boolean(activeIntake&&isGeneral(activeIntake)&&generalFieldNames.some(key=>(document.querySelector('[data-proposed="'+key+'"]')?.value||'')!==(activeIntake.facts[key]||'')));}
+const beforeGeneralIntake=showIntake;
+showIntake=function(session){
+  beforeGeneralIntake(session);
+  const editor=el('proposed-facts');editor.replaceChildren();editor.hidden=!isGeneral(session)||Boolean(session.caseId);
+  if(isGeneral(session)&&!session.caseId){
+    for(const key of generalFieldNames){const label=document.createElement('label');label.textContent=generalLabels[key]+(generalRequired.includes(key)?' (needed)':' (optional)');const input=document.createElement(['issue','desiredOutcome','expected','actual','priorContact'].includes(key)?'textarea':'input');input.dataset.proposed=key;input.value=session.facts[key]||'';input.setAttribute('aria-label','Proposed '+generalLabels[key]);if(['charged','cancelled','incidentDate'].includes(key))input.type='date';if(input.tagName==='TEXTAREA')input.style.minHeight='85px';input.addEventListener('input',()=>{el('intake-confirm').checked=false;controls();});label.append(input);editor.append(label);}
+    if(session.summary.warnings?.length){const warning=document.createElement('p');warning.textContent=session.summary.warnings.join(' ');editor.append(warning);}const note=document.createElement('small');note.textContent='Edit missing or incorrect facts here, then save the corrections. Required: company, what happened and the outcome you want. Optional dates can remain unknown.';editor.prepend(note);
+    const button=document.createElement('button');button.id='save-intake-corrections';button.textContent='Save reviewed corrections';button.onclick=()=>run(async()=>{const facts=Object.fromEntries(generalFieldNames.map(key=>[key,document.querySelector('[data-proposed="'+key+'"]').value]));showIntake(await api('/api/intakes/'+activeIntake.id+'/facts','PUT',{revision:activeIntake.revision,facts,confirmed:true}));await intakeList();});editor.append(button);
+    el('advanced-intake').open=false;el('edit-intake-details').setAttribute('aria-expanded','false');
+  }
+  controls();
+};
+const beforeGeneralControls=controls;
+controls=function(){
+  beforeGeneralControls();
+  if(!current)generalMode(true);if(current&&isGeneral(current)&&current.resolution){el('fields').disabled=true;el('paste-fields').disabled=true;el('research-controls').disabled=true;}
+  const general=Boolean(current&&isGeneral(current));
+  el('generate-draft-here').disabled=el('draft').disabled;
+  el('draft-from-account').disabled=busy||!general||Boolean(current?.resolution);
+  if(proposedDirty()){el('commit-intake').disabled=true;el('intake-blocker').textContent='Save the reviewed corrections before confirming and creating the case.';}
+  if(el('save-intake-corrections'))el('save-intake-corrections').disabled=busy||!proposedDirty();
+  if(general&&!current.resolution){el('context-copy').textContent=latestChecks?.caseId===current.id?latestChecks.result.issues.length?latestChecks.result.issues.join(' '):'Review the complaint and explicitly approve an export when satisfied.':'Review relevant records, or choose an account-only draft. No irrelevant cancellation evidence is required.';}
+};
+const generalChecksBase=displayChecks;displayChecks=async function(){const result=await generalChecksBase();if(current&&isGeneral(current)){const first=el('checks').querySelector('p');if(result.ready&&first)first.textContent='The reviewed facts agree. SIR has not authenticated the records or independently verified the account.';if(result.warnings?.length){const warning=document.createElement('p');warning.textContent=result.warnings.join(' ');el('checks').append(warning);}}return result;};
+el('generate-draft-here').onclick=()=>el('draft').click();
+el('draft-from-account').addEventListener('change',()=>{el('email-approve-confirm').checked=false;controls();});
+const resetGeneralBase=resetWorkspace;
+resetWorkspace=function(){resetGeneralBase();generalMode(true);el('proposed-facts').replaceChildren();el('draft-from-account').checked=false;};
+const generalListBase=list;
+list=async function(selected){await generalListBase(selected);const cases=await api('/api/cases');for(const [i,c]of cases.entries()){const node=el('case-list').children[i];if(!node||!isGeneral(c))continue;node.querySelector('.case-amount').textContent=c.amount?(c.currency||'Currency unspecified')+' '+c.amount:'No amount specified';const paragraphs=node.querySelectorAll('p');if(paragraphs[1])paragraphs[1].textContent=c.issue?(c.issue.slice(0,180)+(c.issue.length>180?'…':'')):'General consumer complaint';}};
+
+el('intake').oninput=()=>controls();el('intake-confirm').addEventListener('change',()=>controls());el('output').addEventListener('input',()=>controls());
+
+// Consumer presentation: the validation and persistence APIs remain authoritative.
+const compactShowIntake=showIntake;
+showIntake=function(session){
+  compactShowIntake(session);
+  const box=el('compact-facts');box.replaceChildren();
+  for(const {key,value} of compactIntakeFacts(session)){
+    const row=document.createElement('p'),label=document.createElement('strong');
+    label.textContent=(generalLabels[key]||key)+': ';row.append(label,document.createTextNode(value));box.append(row);
+  }
+  el('intake-summary').textContent=session.summary.warnings?.join(' ')||'';
+  el('fact-quotes').textContent=session.proposals.flatMap(p=>p.updates).map(u=>(generalLabels[u.field]||u.field)+': '+u.value+' | Your words: '+u.quote).join('\n');
+};
+el('edit-intake-details').onclick=()=>{el('advanced-intake').open=!el('advanced-intake').open;el('edit-intake-details').setAttribute('aria-expanded',String(el('advanced-intake').open));};
+el('advanced-intake').addEventListener('toggle',()=>el('edit-intake-details').setAttribute('aria-expanded',String(el('advanced-intake').open)));
+const consumerControls=controls;
+controls=function(){
+  consumerControls();
+  el('start-conversation').hidden=scriptedMode;
+  el('send-message').disabled=busy||!aiReady||Boolean(activeIntake?.caseId)||!el('ai-message').value.trim();
+  el('ai-message').disabled=busy||!aiReady||Boolean(activeIntake?.caseId);
+  const selected=current?.communications?.find(m=>m.id===el('approved-message').value);
+  const matchesPreview=exportMatchesDraft(current,el('approved-message').value)&&selected?.recipient===el('email-recipient').value.trim()&&selected?.subject===el('email-subject').value.trim()&&selected?.kind===el('email-kind').value;
+  el('export-email').disabled ||= !matchesPreview;
+  if(el('email-download-link'))el('email-download-link').hidden=el('export-email').disabled;
+  const guidance=exportGuidance(current,{draftDirty:dirty(),caseDirty:detailsDirty(),approved:matchesPreview,confirmed:el('email-approve-confirm').checked,recipient:el('email-recipient').value,subject:el('email-subject').value,historical:draftUiState(current).reason});
+  el('export-guidance').textContent=guidance;
+  el('approve-email').disabled ||= !el('email-approve-confirm').checked||!el('email-recipient').validity.valid||!el('email-recipient').value.trim()||!el('email-subject').value.trim();
+  el('source-review').hidden=!sourcePreview;el('different-source').hidden=!sourcePreview;el('different-source').disabled=busy;
+  el('source-title').readOnly=Boolean(sourcePreview?.uploadId);
+  el('source-type').disabled=Boolean(sourcePreview?.uploadId);
+  el('save-source').disabled=busy||!current||!sourcePreview||!el('source-confirm').checked||dirty()||detailsDirty();
+  el('source-guidance').textContent=!current?'Create or open a case before adding evidence.':dirty()||detailsDirty()?'Save your draft and case edits before adding evidence.':!sourcePreview?'Choose the evidence type, then extract your document or suggest facts from pasted text.':!el('source-confirm').checked?'Review this evidence before adding it to your complaint. Check the original text, correct suggestions and tick the confirmation below.':'Select Save reviewed evidence to add this record. Your original source will be kept.';
+  for(const id of ['check','draft','generate-draft-here'])el(id).setAttribute('aria-describedby',id==='generate-draft-here'?'export-guidance':'context-copy');
+};
+for(const id of ['ai-message','email-recipient','email-subject','email-kind','email-approve-confirm','source-confirm'])el(id).addEventListener('input',controls);
+el('source-confirm').addEventListener('change',controls);
+el('different-source').onclick=()=>{invalidateSource();el('source-title').value='';el('source-text').value='';el('document-file').value='';controls();el('document-file').focus();};
+// Guided actions are computed from the saved case and visible pending work.
+let guideState=null;
+function guideForm(){return {messageId:el('approved-message').value,dirty:dirty()||detailsDirty(),sentConfirmed:el('sent-confirm').checked,sentDate:el('sent-date').value,followUpDate:el('follow-up-date').value,unsolicited:el('unsolicited-response').checked,receivedDate:el('response-date').value,responseText:el('response-text').value,resolutionNote:el('resolution-note').value,resolutionConfirmed:el('resolution-confirm').checked};}
+function revealControl(id){
+  const target=el(id);if(!target)return;
+  for(let parent=target.parentElement;parent;parent=parent.parentElement)if(parent.tagName==='DETAILS')parent.open=true;
+  target.setAttribute('tabindex',target.tabIndex<0?'-1':String(target.tabIndex));
+  target.scrollIntoView({block:'center',behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+  target.focus({preventScroll:true});
+}
+function refreshGuide(){
+  const selected=current?.communications?.find(m=>m.id===el('approved-message').value);
+  const approvedMatches=exportMatchesDraft(current,selected?.id)&&selected.recipient===el('email-recipient').value.trim()&&selected.subject===el('email-subject').value.trim()&&selected.kind===el('email-kind').value;
+  guideState=guidedAction(current,{aiReady,intake:activeIntake,intakeConfirmed:el('intake-confirm').checked,proposedDirty:proposedDirty(),caseDirty:detailsDirty(),draftDirty:dirty(),preview:sourcePreview,sourceConfirmed:el('source-confirm').checked,accountOnly:el('draft-from-account').checked,checks:latestChecks?.caseId===current?.id&&latestChecks?.revision===(current?.revision||0)?latestChecks.result:null,form:guideForm(),approvedMatches,recipient:el('email-recipient').value,subject:el('email-subject').value,emailConfirmed:el('email-approve-confirm').checked});
+  for(const node of document.querySelectorAll('.guided-pulse,.guided-target,.guided-nav'))node.classList.remove('guided-pulse','guided-target','guided-nav');
+  el('guided-title').textContent=guideState.title;el('guided-copy').textContent=guideState.copy;el('guided-action').textContent=guideState.label;el('guided-action').disabled=busy;
+  el('context-title').textContent=guideState.title;el('context-copy').textContent=guideState.copy;
+  if(current){el('case-strip-next').textContent=guideState.copy;}
+  const target=el(guideState.target),visible=activePane===guideState.pane&&Boolean(target?.getClientRects().length);
+  const pulse=visible&&target&&!target.disabled?target:el('guided-action');
+  // Pulse a label for a checkbox, so the small native control stays legible.
+  (pulse.type==='checkbox'?pulse.closest('label'):pulse)?.classList.add('guided-pulse');
+  target?.classList.add('guided-target');
+  for(const nav of document.querySelectorAll('.sidebar [data-nav]'))if(nav.dataset.nav===guideState.pane)nav.classList.add('guided-nav');
+}
+el('guided-action').onclick=()=>{if(!guideState)return;const id=guideState.target;navigate(guideState.pane,false);if(!current&&!aiReady)el('editor').open=true;revealControl(id);const target=el(id);if(target?.tagName==='BUTTON'&&!target.disabled)target.click();refreshGuide();};
+el('go-record-sent').onclick=()=>{navigate('drafts',false);revealControl('record-sent');};
+const lifecycleControls=controls;
+controls=function(){
+  lifecycleControls();
+  const form=guideForm(),flow=communicationReadiness(current,form);
+  el('save').textContent=current?.draft&&!dirty()?'Draft saved':'Save draft';
+  if(current?.draft&&!dirty())el('draft-state').textContent+=' · Already saved. Edit the wording to enable Save draft.';
+  el('record-sent').disabled=busy||!flow.canSend;
+  el('record-response').disabled=busy||!flow.canRespond;
+  el('prepare-follow-up').disabled=busy||!flow.canFollowUp;
+  el('sent-guidance').textContent=flow.sendReason||'Your actual sent date, later review date and explicit send confirmation are ready to save.';
+  el('response-guidance').textContent=flow.responseReason||'Ready to save this merchant communication in case history and correspondence.';
+  el('follow-up-guidance').textContent=flow.followReason||'Your chosen review date has arrived and no response is recorded. Prepare a follow-up if appropriate.';
+  el('go-record-sent').hidden=!current||form.unsolicited||Boolean(flow.selected?.sentDate);
+  el('go-record-sent').disabled=busy;
+  el('resolve-case').disabled=busy||!current||Boolean(current.resolution)||form.dirty||!el('resolution-note').value.trim()||!el('resolution-confirm').checked;
+  el('resolution-guidance').textContent=current?.resolution?'This case is closed. Its history is retained.':!el('resolution-note').value.trim()?'Describe the actual outcome before closing this case.':!el('resolution-confirm').checked?'Confirm that this outcome resolves the case, then save resolution.':'Ready to record this outcome and close the case.';
+  // Historical follow-ups stay closed to editing/sending, but responses can still be recorded.
+  if(draftUiState(current).historical)el('record-sent').disabled=true;
+  el('generate-draft-here').disabled=el('draft').disabled;
+  el('approve-email').setAttribute('aria-describedby','export-guidance');
+  if(current?.researchNeedsReview)el('regenerate').setAttribute('aria-describedby','review-warning');
+  refreshGuide();
+};
+for(const id of ['sent-date','follow-up-date','sent-confirm','unsolicited-response','response-date','response-text','resolution-note','resolution-confirm','source-date-role','draft-from-account']){
+  el(id).addEventListener('input',controls);el(id).addEventListener('change',controls);
+}
+const lifecycleShow=show;
+show=function(c){
+  const same=current?.id===c.id;
+  const oldResponses=(current?.communications||[]).filter(m=>m.kind==='response').length;
+  const pending=same?{text:el('response-text').value,date:el('response-date').value,unsolicited:el('unsolicited-response').checked,note:el('resolution-note').value}:null;
+  el('unsolicited-response').checked=false;lifecycleShow(c);
+  if(pending&&(c.communications||[]).filter(m=>m.kind==='response').length===oldResponses){el('response-text').value=pending.text;el('response-date').value=pending.date;el('unsolicited-response').checked=pending.unsolicited;}
+  if(pending&&!c.resolution)el('resolution-note').value=pending.note;
+  controls();
+};
+const lifecycleChecks=displayChecks;
+displayChecks=async function(){const result=await lifecycleChecks();refreshGuide();return result;};
+// Keep the field order brief for new cases. Extra context remains available.
+const extraFacts=document.createElement('details');extraFacts.className='advanced-case';
+const extraSummary=document.createElement('summary');extraSummary.textContent='Optional dates, amount and additional context';extraFacts.append(extraSummary);
+el('fields').insertBefore(extraFacts,el('complaintType').closest('label'));
+for(const id of ['complaintType','expected','actual','priorContact','incidentDate','reference','amount','currency','cancelled','charged'])extraFacts.append(el(id).closest('label'));
+el('fields').insertBefore(el('merchant').closest('label'),el('issue').closest('label'));
+el('output').setAttribute('aria-describedby','draft-state review-warning');
+el('source-confirm').setAttribute('aria-describedby','source-guidance');
+el('response-text').setAttribute('aria-describedby','response-guidance');
+el('guided-action').setAttribute('aria-controls','pane-assistant pane-evidence pane-drafts');
+
+// Focused journey. The existing API remains the authority for every safeguard.
+const make=(tag,props={})=>Object.assign(document.createElement(tag),props);
+const compatibility=make('div',{hidden:true,id:'compatibility-controls'});document.body.append(compatibility);
+document.querySelector('.skip').href='#main-content';el('guided-step').tabIndex=-1;document.querySelector('main').id='main-content';document.querySelector('main').tabIndex=-1;
+const nav=document.querySelector('.sidebar nav');nav.replaceChildren();
+for(const [name,label] of [['assistant','1  Tell SIR'],['evidence','2  Evidence'],['drafts','3  Complaint'],['email','4  Email'],['activity','5  Outcome'],['cases','My cases'],['history','Case history']]){
+  const button=make('button',{textContent:label});button.dataset.nav=name;button.onclick=()=>navigate(name);nav.append(button);
+}
+el('new-dispute').textContent='+ New complaint';
+document.querySelector('.brand').onclick=e=>{e.preventDefault();navigate(current?'history':'assistant');};
+// The sidebar is the sole stage navigation.
+function addPane(name,title,description){const pane=make('div',{id:'pane-'+name,hidden:true});pane.dataset.pane=name;const heading=make('div',{className:'page-heading'}),copy=make('div');copy.append(make('h2',{textContent:title,tabIndex:-1}),make('p',{textContent:description}));heading.append(copy);pane.append(heading);document.querySelector('.app-footer').before(pane);return pane;}
+const emailPane=addPane('email','Review your email','Check the exact recipient, subject and message before approving an unsent email file.');
+const activityPane=addPane('activity','What happened next?','Record only what actually happened. You can save a reply, prepare a due follow-up or record the outcome.');
+const historyPane=addPane('history','Your case record','Your facts, original evidence, correspondence and earlier drafts stay together.');
+const emailSection=el('email-step');emailPane.append(emailSection);emailSection.querySelector('h2').textContent='Recipient and approval';
+const record=el('record-progress');activityPane.append(record);record.open=true;
+function activityGroup(title,start,end,id){const group=make('details',{className:'activity-card',id});group.append(make('summary',{textContent:title}));let node=start;while(node){const next=node.nextSibling;group.append(node);if(node===end)break;node=next;}record.append(group);return group;}
+const selectedLabel=el('approved-message').closest('label');record.before(selectedLabel);
+const sendGroup=activityGroup('Record actual sending',el('sent-date').closest('label'),el('go-record-sent'),'sending-panel');
+const replyGroup=activityGroup('Save a merchant response',el('unsolicited-response').closest('label'),el('record-response'),'response-panel');
+const outcomeGroup=activityGroup('Record the outcome and close the case',el('resolution-note').closest('label'),el('resolve-case'),'outcome-panel');
+// Follow-ups are shown only when the saved state permits them.
+const followGroup=make('details',{className:'activity-card',id:'followup-panel'});followGroup.append(make('summary',{textContent:'Prepare a follow-up'}),el('follow-up-guidance'),el('prepare-follow-up'));record.append(followGroup);
+compatibility.append(el('go-record-sent'));
+const historySection=make('section',{className:'panel'});historyPane.append(historySection);
+for(const id of ['case-history','case-correspondence']){const node=el(id);historySection.append(node.previousElementSibling,node);}
+const previous=el('draft-versions').closest('details');historySection.append(previous);
+const factsPanel=el('case').closest('.panel');const factsDisclosure=make('details');factsDisclosure.append(make('summary',{textContent:'Review or correct your case facts and saved evidence'}));
+el('pane-evidence').insertBefore(factsDisclosure,factsPanel);factsDisclosure.append(factsPanel);
+el('pane-evidence').querySelector('.page-heading h2').textContent='Support your complaint';
+el('pane-evidence').querySelector('.page-heading p').textContent='Add a relevant document and check what it says. If you have no records, you can continue using your account.';
+const originalDetails=make('details',{id:'original-source'});originalDetails.append(make('summary',{textContent:'Read the extracted original text'}));
+el('source-text').closest('label').before(originalDetails);originalDetails.append(el('source-text').closest('label'));
+const patternExplanation=el('analyse-source').nextElementSibling;patternExplanation.textContent='Suggestions come from the document text. Review and correct them; SIR has not authenticated the source.';
+const pasteDetails=make('details',{id:'paste-evidence'});pasteDetails.append(make('summary',{textContent:'Or paste evidence text'}));originalDetails.before(pasteDetails);pasteDetails.append(el('source-title').closest('label'),el('analyse-source'),patternExplanation);
+// Source text is also the pasted-text editor; reveal it for that alternative.
+pasteDetails.addEventListener('toggle',()=>{if(pasteDetails.open&&!sourcePreview){originalDetails.open=true;el('source-text').focus();}});
+const typeLabel=el('source-type').closest('label');el('paste-fields').prepend(typeLabel);
+el('evidence-step').querySelector('h2').textContent='Add evidence';
+el('upload-document').textContent='Read this document';
+el('upload-document').nextElementSibling.textContent='Choose a PDF with selectable text or a .txt file, up to 2 MB. SIR reads it locally and suggests facts for your review. Scans need a text transcription.';
+el('source-suggestions').before(make('details',{id:'extraction-notes'}));el('extraction-notes').append(make('summary',{textContent:'How these suggestions were found'}),el('source-suggestions'));
+const reviewFacts=make('div',{className:'review-facts'});el('source-review').insertBefore(reviewFacts,el('source-merchant').closest('label'));
+for(const id of ['source-merchant','source-date','source-amount','source-currency','source-reference'])reviewFacts.append(el(id).closest('label'));
+const policy=el('policy-step'),policyDetails=make('details',{id:'optional-research'});policyDetails.append(make('summary',{textContent:'Optional: review an official company policy'}));policy.before(policyDetails);policyDetails.append(policy);
+const draftPanel=el('output').closest('.panel');draftPanel.querySelector('h2').textContent='Prepare and review your complaint';
+draftPanel.insertBefore(el('draft'),el('output'));compatibility.append(el('generate-draft-here'));
+el('draft').textContent='Prepare my complaint';
+const accountLabel=el('draft-from-account').closest('label');el('evidence-step').after(accountLabel);
+accountLabel.lastChild.textContent=' I have no supporting records. Use my reviewed account and clearly label statements that are not independently supported.';
+const proceed=make('button',{id:'continue-account',textContent:'Prepare complaint using my account'});accountLabel.after(proceed);proceed.onclick=()=>el('draft').click();
+const checkDetails=make('details',{id:'comparison-details'});checkDetails.append(make('summary',{textContent:'Compare your facts with saved evidence'}),el('checks'),el('check'));factsDisclosure.after(checkDetails);el('check').textContent='Check the saved evidence again';
+compatibility.append(document.querySelector('.next-card')); // Retain engine references, remove competing workflow controls.
+el('pane-drafts').querySelector('.page-heading h2').textContent='Your complaint';
+el('pane-drafts').querySelector('.page-heading p').textContent='Read the wording and edit anything needed. SIR saves each generated draft; save your own edits before continuing.';
+const continueEmail=make('button',{id:'continue-email',textContent:'Continue to email review'});
+const continueRow=make('div',{className:'primary-action-row'});continueRow.append(continueEmail);draftPanel.append(continueRow);
+const secondaryRow=make('div',{className:'secondary-action-row'});el('regenerate').before(secondaryRow);secondaryRow.append(el('regenerate'));
+continueEmail.onclick=()=>{navigate('email');revealControl('email-recipient');};
+for(const id of ['source-confirm','email-approve-confirm'])el(id).closest('label').classList.add('review-confirmation');
+const recipientGuidance=make('p',{id:'recipient-guidance',className:'footnote'});el('email-recipient').closest('label').after(recipientGuidance);
+el('email-recipient').setAttribute('aria-describedby','recipient-guidance');
+el('case-progress').hidden=true;
+refreshEmailPreview();
+for(const id of ['send-message','commit-intake','save-source','approve-email','export-email'])el(id).classList.add('primary');
+const emailState=make('p',{id:'email-state',role:'status'});emailSection.prepend(emailState);
+const optional=make('details',{id:'workflow-extras'});optional.append(make('summary',{textContent:'Other ways to start'}));el('conversation-step').append(optional);
+optional.append(el('manual-start'),el('start-conversation'));el('manual-start').textContent='Enter my complaint facts';
+el('manual-start').onclick=()=>{if(!canLeave())return;resetWorkspace();navigate('evidence');factsDisclosure.open=true;el('editor').open=true;revealControl('merchant');};
+el('new-manual').hidden=true;
+const priorConversations=el('saved-intakes').closest('details');optional.append(priorConversations);
+const transcript=make('details',{id:'saved-transcript'});transcript.append(make('summary',{textContent:'Read the conversation'}));el('conversation-step').append(transcript);
+const composerNodes=[el('ai-message').closest('label'),el('ai-consent').closest('label'),el('send-message')];
+const continueConversation=make('button',{id:'continue-conversation',textContent:'Continue the conversation',hidden:true});el('fact-review').append(continueConversation);
+let editingConversation=false;continueConversation.onclick=()=>{editingConversation=true;controls();revealControl('ai-message');};
+const statusBase=reportStatus;
+reportStatus=function(text){statusBase(visibleStatus(text));el('status').dataset.error='false';};
+const apiBase=api;let successfulMutation='';
+api=async function(path,method='GET',input){const result=await apiBase(path,method,input);if(method!=='GET'&&!path.endsWith('/check'))successfulMutation=path;return result;};
+run=async function(fn){
+  if(busy)return;busy=true;successfulMutation='';controls();reportStatus('Working.');
+  try{await fn();if(current)await displayChecks();if(el('status').textContent==='Working.')reportStatus(successfulMutation?'Changes saved.':'');
+    const path=successfulMutation,previousPane=activePane;
+    if(/\/commit$|\/evidence$/.test(path)){navigate('evidence',false);if(/\/evidence$/.test(path)&&latestChecks?.result.ready)navigate('drafts',false);}
+    if(/\/(draft|regenerate|follow-up)$/.test(path))navigate('drafts',false);
+    if(/\/export-request$|\/sent$|\/response$/.test(path))navigate('activity',false);
+    if(/\/resolve$/.test(path))navigate('history',false);
+    if(activePane!==previousPane)window.scrollTo({top:0,behavior:'instant'});
+  }catch(error){reportStatus(error.message);el('status').dataset.error='true';el('status').scrollIntoView({block:'nearest'});}
+  finally{busy=false;if(el('status').textContent==='Working.')reportStatus('');controls();}
+};
+const oldGuide=refreshGuide;
+refreshGuide=function(){
+  oldGuide();
+  // Resolve the actual stage from its control, rather than a redundant tab link.
+  let target=el(guideState.target);
+  if(guideState.target==='generate-draft-here'){guideState.target='draft';target=el('draft');}
+  const pane=target?.closest('[data-pane]');if(pane)guideState.pane=pane.dataset.pane;
+  if(guideState.stage==='intake'&&activeIntake?.messages?.length){el('guided-title').textContent='Let’s fill in the next detail';el('guided-copy').textContent='Read SIR’s latest question below, then reply in Your message.';}
+  if(guideState.stage==='evidence')el('guided-copy').textContent='Your case has been created. Choose your order confirmation or another relevant record below. If you have no records, choose the account-only option.';
+  if(guideState.stage==='sent')el('guided-copy').textContent='Your unsent email file was requested. Check your downloads, open it in your email app and review it. Record sending here only after you actually send it.';
+  const screenGuide=stageGuidance(current,activePane,{...guideState,title:el('guided-title').textContent,copy:el('guided-copy').textContent},guideForm());
+  el('guided-title').textContent=screenGuide.title;el('guided-copy').textContent=screenGuide.copy;
+  // The guide navigates only when another stage is needed; the local action does the work.
+  el('guided-action').hidden=activePane===guideState.pane;
+  if(activePane==='drafts'&&current?.draft&&guideState.pane==='email')el('guided-action').hidden=true;
+  if(activePane==='evidence'&&el('draft-from-account').checked&&guideState.stage==='draft')el('guided-action').hidden=true;
+  el('guided-action').textContent='Continue: '+paneNames[guideState.pane];
+  for(const node of document.querySelectorAll('.guided-pulse,.guided-nav'))node.classList.remove('guided-pulse','guided-nav');
+  if(activePane===guideState.pane&&target){
+    for(let parent=target.parentElement;parent;parent=parent.parentElement)if(parent.tagName==='DETAILS'&&!['original-source','extraction-notes','advanced-intake'].includes(parent.id))parent.open=true;
+    if(!target.disabled)(target.type==='checkbox'?target.closest('label'):target).classList.add('guided-pulse');
+  }else if(!el('guided-action').hidden)el('guided-action').classList.add('guided-pulse');
+  if(activePane==='drafts'&&current?.draft&&guideState.pane==='email')continueEmail.classList.add('guided-pulse');
+  if(activePane==='evidence'&&el('draft-from-account').checked&&guideState.stage==='draft')proceed.classList.add('guided-pulse');
+
+  for(const button of nav.querySelectorAll('[data-nav]'))if(button.dataset.nav===guideState.pane)button.classList.add('guided-nav');
+};
+el('guided-action').onclick=()=>{if(!guideState)return;navigate(guideState.pane,false);revealControl(guideState.target);};
+const finalControls=controls;
+controls=function(){
+  finalControls();
+  if(!busy&&el('status').textContent==='Working.')reportStatus('');
+  if(el('recipient-guidance'))el('recipient-guidance').textContent=recipientDescription(el('email-recipient').value);
+  const closed=Boolean(current?.resolution),hasDraft=Boolean(current?.draft),flow=communicationReadiness(current,guideForm());
+  el('manual-start').hidden=false;el('start-conversation').hidden=true;
+  el('go-record-sent').hidden=true;el('new-manual').hidden=true;
+  el('create-custom').hidden=Boolean(current);el('save-details').hidden=!current||!detailsDirty();
+  el('save').hidden=!dirty();el('regenerate').hidden=!hasDraft||closed;
+  el('draft').hidden=hasDraft||closed;el('output').hidden=!hasDraft;el('draft-state').hidden=!current;
+  continueEmail.hidden=!hasDraft||closed||draftUiState(current).historical;continueEmail.disabled=busy||dirty()||detailsDirty()||Boolean(current?.draftNeedsReview)||Boolean(current?.researchNeedsReview);
+  continueEmail.classList.toggle('primary',!dirty());
+  el('draft-from-account').closest('label').hidden=!current||!isGeneral(current)||closed||Boolean(current.evidence?.some(e=>e.active!==false))||hasDraft;
+  proceed.hidden=el('draft-from-account').closest('label').hidden||!el('draft-from-account').checked;proceed.disabled=el('draft').disabled;
+  el('analyse-source').hidden=Boolean(sourcePreview);el('upload-document').hidden=Boolean(sourcePreview);
+  el('upload-document').disabled=busy||!current||!el('document-file').files.length||closed;
+  el('document-file').disabled=busy||!current||closed;
+  policyDetails.hidden=scriptedMode&&!current?.researchNeedsReview&&!current?.research?.length;
+  el('source-guidance').textContent=!current?'Create or open a case before adding evidence.':!sourcePreview?'Choose your evidence type, select a document, then select Read this document. Or open the pasted-text option below.':!el('source-confirm').checked?'Suggestions are ready. Read the original if needed, check the fields below and confirm they reflect your document.':'The reviewed facts are ready. Select Save reviewed evidence to add this source to your case.';
+  el('approve-email').hidden=Boolean(exportMatchesDraft(current,el('approved-message').value)&&!el('export-email').disabled);
+  el('export-email').hidden=el('export-email').disabled;
+  const approval=current?.communications?.find(m=>m.id===el('approved-message').value);
+  emailState.textContent=closed?'Case closed — email retained for review.':approval?.sentDate?'Recorded sent outside SIR on '+approval.sentDate:approval?.exportRequestedAt?'Export requested — not recorded sent.':approval?.approvedAt?'Approved for export — not sent.':hasDraft?'Draft prepared — awaiting your review and approval.':'Prepare your complaint first.';
+  selectedLabel.hidden=!current?.communications?.some(m=>m.approvedAt)||closed;
+  sendGroup.hidden=!approval||closed||Boolean(approval.sentDate);followGroup.hidden=!flow.canFollowUp||closed;
+  replyGroup.hidden=!current||closed;outcomeGroup.hidden=!current||closed;
+  el('record-progress').hidden=!current||closed;
+  if(guideState?.pane==='activity'){const target=el(guideState.target);for(let parent=target?.parentElement;parent;parent=parent.parentElement)if(parent.tagName==='DETAILS')parent.open=true;}
+  const ready=Boolean(activeIntake?.summary?.ready&&!activeIntake.caseId);
+  continueConversation.hidden=!ready;
+  if(ready&&!editingConversation){for(const node of composerNodes)node.hidden=true;}else{composerNodes[0].hidden=Boolean(current);composerNodes[1].hidden=scriptedMode||Boolean(current);composerNodes[2].hidden=Boolean(current);}
+  if(current){transcript.hidden=false;if(el('ai-messages').parentElement!==transcript)transcript.append(el('ai-messages'));el('scripted-guide').hidden=true;}
+  else{transcript.hidden=true;if(el('ai-messages').parentElement===transcript)el('conversation-controls').prepend(el('ai-messages'));}
+  if(scriptedMode){el('scripted-guide').hidden=ready||Boolean(current);el('scripted-guide').querySelector('p').textContent='This offline Alexa+ rehearsal recognises three example messages. Choose the next example, then select Ask SIR. The case, evidence and email tools are real local workflows.';const turn=Math.floor((activeIntake?.messages?.filter(m=>m.role==='user').length||0));[...el('demo-examples').children].forEach((button,i)=>button.hidden=i!==Math.min(turn,2));}
+  document.querySelector('.intro').hidden=Boolean(activeIntake?.messages?.length)||Boolean(current);el('conversation-step').querySelector('h2').hidden=Boolean(current)||ready;
+  el('ai-availability').hidden=scriptedMode;el('composer-help').hidden=Boolean(current)||ready;
+  if(!current&&!activeIntake)editingConversation=false;
+};
+el('document-file').addEventListener('change',controls);
+// Guidance updates on the existing asynchronous startup callback as well.
+navigate('assistant',false);controls();list().catch(error=>reportStatus(error.message));
+
+</script></body></html>

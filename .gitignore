@@ -1,0 +1,11 @@
+data/
+data-demo/
+.runtime/
+.env
+.env.*
+!.env.example
+*.log
+*.zip
+node_modules/
+!vendor/node_modules/
+!vendor/node_modules/**

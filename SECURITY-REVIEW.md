@@ -1,0 +1,13 @@
+# Release security review
+
+Scope: local, single-user fictional demonstration. This is a code review and targeted verification, not a penetration-test certification.
+
+- Server binds to 127.0.0.1; accepted Host values are local addresses with a port. Cross-origin requests are rejected. Only explicitly named browser files are served; API data and source directories are not static roots.
+- API credentials stay in the server/launcher process, not browser assets. Scripted launch ignores AI credentials and uses no conversation network request. Website fetching is disabled in scripted mode. Live research retains its existing public-URL and redirect checks.
+- JSON requests are bounded to 100 KB, or 3 MB for document preview; consent and conversation limits remain enforced. Uploads accept UTF-8 text or text-layer PDFs, up to 2 MB. PDFs run in a limited-memory, time-bounded child process, with at most 20 pages and 30,000 extracted characters. No OCR is provided.
+- Scripted input cannot invoke tools or select arbitrary fields. Live AI receives only consented conversation and proposed facts and must supply exact quotations. Documents are not passed to the conversational model. Evidence and policy text are untrusted records, not authority to send or escalate.
+- Case changes and evidence changes invalidate drafts. Revision checks prevent stale overwrites. Export requires reviewed recipient, subject, message and explicit approval; `.eml` is marked unsent. No SMTP or sending endpoint exists.
+- Data is local, unencrypted, and retained until the operator removes or moves it. Browsers on the same server share the same store; there is no cross-user isolation or login. Run one private instance per evaluator. Do not expose the process publicly.
+- The fallback has no paid AI endpoint, therefore no public API budget, authentication scheme or rate-limiting promise is claimed. A hosted service needs per-session storage, authentication/abuse controls, retention, quotas and log review before release.
+- The clean package excludes working cases, intakes, exports, private archives, logs, `.env` files and personal machine paths. The fixture is visibly fictional; example email uses the reserved `.example` domain. The vendor native binary is a redistribution of the installed runtime, not a new application executable.
+- Upstream PDF.js and canvas versions are pinned in `THIRD-PARTY-NOTICES.md`. No independent native-code or dependency vulnerability audit is claimed. PDF processing restrictions reduce exposure but do not establish that arbitrary hostile PDFs are safe. Use fictional test records.
