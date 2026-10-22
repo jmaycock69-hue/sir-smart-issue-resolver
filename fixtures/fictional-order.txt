@@ -1,0 +1,10 @@
+Order confirmation
+Acorn Outdoor Supplies
+Order reference: ACORN-1042
+Order date: 2026-10-01
+Product: camping stove
+Amount paid: GBP 89.00
+Payment status: paid
+Delivery status: awaiting delivery
+
+Fictional demonstration record. The order date is not a payment or delivery date. This record confirms what is stated here; it does not independently prove the consumer's non-delivery account.
